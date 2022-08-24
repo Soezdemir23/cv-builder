@@ -126,4 +126,6 @@ A curriculum vitae contains 3-4 parts
 
 ### extra scope
 
-#
+### credits
+
+Photo by Royal Anwar: https://www.pexels.com/photo/man-leaning-on-wall-450214/
