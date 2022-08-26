@@ -1,4 +1,4 @@
-# CV-Builder
+# CV-Builder (WIP)
 
 A CV-Builder is a nifty way to create automated curriculum vitae.
 
