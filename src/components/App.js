@@ -37,7 +37,9 @@ function App() {
     let edu = {}
     for (let i = 0; i < event.target.length; i++) {
       edu[event.target[i].name] = event.target[i].value
+      if(event.target[i].)
       event.target[i].value = ""
+
     }
     setEducation({
       ...education,
@@ -75,7 +77,6 @@ function App() {
     })
 
   }
-  // FIXME: Causing an TypeError, not iterable
   function handleCerts(event) {
     event.preventDefault()
     let edu = {}
@@ -154,8 +155,8 @@ function App() {
           </article>
           <article>
             <h2>Education</h2>
-            <div onSubmit={handleSchool} className='flex flex-col p-3 w-96 justify-center'>
-              <form className='p-1 grid grid-flow-row'>
+            <div className='flex flex-col p-3 w-96 justify-center'>
+              <form onSubmit={handleSchool} className='p-1 grid grid-flow-row'>
                 <label htmlFor='school-name'>School</label>
                 <input required={true} name="schoolName" id='school-name'></input>
                 <label htmlFor='education'>Education</label>
