@@ -34,19 +34,32 @@ function App() {
 
   function handleCollege(event) {
     event.preventDefault()
-    console.log("pipi", event.target[0].value)
     let edu = {}
     for (let i = 0; i < event.target.length; i++) {
       edu[event.target[i].name] = event.target[i].value
       event.target[i].value = ""
     }
-
-
     setEducation({
       ...education,
       college: [...education.college, edu]
     })
   }
+
+  function handleSchool(event) {
+    event.preventDefault()
+    let edu = {}
+    for (let i = 0; i < event.target.length; i++) {
+      edu[event.target[i].name] = event.target[i].value
+      event.target[i].value = ""
+
+    }
+    setEducation({
+      ...education,
+      school: [...education.school, edu]
+    })
+    console.log(edu, education)
+  }
+
 
   function handleLanguages(event) {
     event.preventDefault()
@@ -75,20 +88,7 @@ function App() {
 
   }
 
-  function handleSchool(event) {
-    event.preventDefault()
-    let edu = {}
-    for (let i = 0; i < event.target.length; i++) {
-      edu[event.target[i].name] = event.target[i].value
-      event.target[i].value = ""
 
-    }
-    setEducation({
-      ...education,
-      school: [...education.school, edu]
-    })
-    console.log(edu, education)
-  }
   return (
 
     <div>
@@ -294,20 +294,10 @@ function App() {
               </div>
               <div className='education-card'>
                 <h2 className='text-base font-thin border-b border-blue-100 mb-2'>Bildung</h2>
-                <div className='grid grid-rows-3 border-b border-blue-100 pb-1 mb-1'>
-                  <h4 className='text-cyan-600 font-medium'>2003 - 2006</h4>
-                  <p>College of Muster</p>
-                  <p>Degree: Are they even worth anything anymore?</p>
-                </div>
-
                 <ul>
-
-                  <li className='grid grid-rows-3 border-b border-blue-100 pb-1 mb-1'>
-                    <h4 className='text-cyan-600 font-medium'>1999 - 2003</h4>
-                    <p>School of power and friendship</p>
-                    <p>Degree: The real world and it's ignored problems</p>
-                    <p>Finished?</p>
-                  </li>
+                  <EducationLists
+                    educationState={education}
+                  />
                 </ul>
               </div>
               <div className='abilities-skills'>
@@ -338,6 +328,31 @@ function App() {
   );
 }
 
+
+function EducationLists({educationState}) {
+  if (educationState.college.length === 0 && educationState.school.length === 0) {
+    return(
+        <>
+        <li className='grid grid-rows-3 border-b border-blue-100 pb-1 mb-1'>
+          <h4 className='text-cyan-600 font-medium'>2003 - 2006</h4>
+          <p>College of Muster</p>
+          <p>Degree: Are they even worth anything anymore?</p>
+        </li>
+        <li className='grid grid-rows-3 border-b border-blue-100 pb-1 mb-1'>
+          <h4 className='text-cyan-600 font-medium'>1999 - 2003</h4>
+          <p>School of power and friendship</p>
+          <p>Degree: The real world and it's ignored problems</p>
+          <p>Finished?</p>
+        </li>
+        </>
+    )
+  } else {
+    console.log(educationState)
+    return (
+        <li>sdfsdf</li>
+    )
+  }
+}
 
 function ProfileList({ profileLink, image }) {
   if (profileLink === undefined) {
