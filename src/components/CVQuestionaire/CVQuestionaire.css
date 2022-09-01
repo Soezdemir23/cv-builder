@@ -1,0 +1,60 @@
+#cvq-wrapper {
+    padding: 1rem;
+    list-style: none;
+
+}
+
+.cvq-section {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.cvq-section >h3 {
+    text-align: center;
+}
+
+
+.cvq-section>div {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.cvq-section>div>input {
+
+}
+
+.cvq-ul {
+    list-style-type: none;
+
+}
+.cvq-ul >li {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+li>ul {
+display: flex;
+}
+li>ul>li {
+
+    display: flex;
+    list-style: none;
+    gap: 5px;
+    position: relative;
+    left: 10px;
+}
+
+li>ul>li>input {
+    width: 23.24rem;
+
+    border-radius: 0.2rem;
+    border: none;
+}
+li>ul>li>button {
+
+}
+
+textarea {
+    resize: none;
+}
