@@ -56,5 +56,5 @@ li>ul>li>button {
 }
 
 textarea {
-    resize: none;
+    rows: 45;
 }

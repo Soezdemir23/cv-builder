@@ -4,7 +4,7 @@ import {useState} from "react";
 
 
 function App() {
-    const [information, setInformation] = useState({
+    const [informationExample, setInformationExample] = useState({
         personal: {
             "first name": "Borchst",
             "second name": "Horchst",
@@ -43,9 +43,65 @@ function App() {
             }]
         }]
     })
+    const [information, setInformation] = useState({
+        personal: {
+            "first name": "Borchst",
+            "second name": "Horchst",
+            "title" : "Professor",
+            "photo" : "dummy",
+            "street and nr": "Somewhere streeets 48",
+            "email" : "somewhere@example.com",
+            "phone": "0234 234234 23424",
+            "github": "https://github.com/in/ZoomZoombaby",
+            "jobprofile": "https://linkedin.com/in/profilemaster",
+            "self": "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum"
+        },
+        education: [],
+        certsAndSkills: [],
+        jobAndExperience :[]
+
+    })
+    //only for the personal, photo requires something else until I get it
     function handleInputChangeParent(e) {
-        console.log(e.target.value)
+
+        setInformation({
+            ...information,
+            education: []
+        })
+
+        setInformation({
+            ...information,
+            personal: {
+                ...information.personal,
+                [e.target.name]: e.target.value
+            }
+        })
+        console.log(information.personal)
+    }
+
+    function handleEducationListChildrenInput(educationObject) {
+        setInformation({
+            ...information,
+            education: [...information.education, educationObject]
+        })
     };
+
+    function handleCertsAndSkillsChildrenInput(certsAndSkillsObject) {
+            console.log((certsAndSkillsObject))
+            setInformation({
+                ...information,
+                certsAndSkills: [...information.certsAndSkills, certsAndSkillsObject]
+            })
+    }
+    
+    function handleJobsAndExperiencesChildrenInput(jobAndExperienceObject) {
+       setInformation({
+            ...information,
+            jobAndExperience: [...information.jobAndExperience, jobAndExperienceObject]
+        })
+        console.log(information.jobAndExperience)
+    }
+
     return (
         <div id="root">
             <header id={"app-header"}>
@@ -56,6 +112,12 @@ function App() {
                     <div>
                         <CVQuestionaire
                             handleInputChangeChild={handleInputChangeParent}
+                            handleInputEducationListChildren={handleEducationListChildrenInput}
+                            handleNewEducationListChildren={information.education}
+                            handleInputCertsAndSkillsChildren={handleCertsAndSkillsChildrenInput}
+                            handleNewCertsAndSkillsChildren={information.certsAndSkills}
+                            handleInputJobsAndExperiencesChildren={handleJobsAndExperiencesChildrenInput}
+                            handleNewJobsAndExperiencesChildren={information.jobAndExperience}
                         />
                     </div>
                 </section>
