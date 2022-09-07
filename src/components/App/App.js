@@ -1,6 +1,6 @@
 import "./App.css"
 import CVQuestionaire from "../CVQuestionaire/CVQuestionaire";
-import {useState} from "react";
+import { useState } from "react";
 
 
 function App() {
@@ -8,10 +8,10 @@ function App() {
         personal: {
             "first name": "Borchst",
             "second name": "Horchst",
-            "title" : "Professor",
-            "photo" : "dummy",
+            "title": "Professor",
+            "photo": "dummy",
             "street and nr": "Somewhere streeets 48",
-            "email" : "somewhere@example.com",
+            "email": "somewhere@example.com",
             "phone": "0234 234234 23424",
             "github": "https://github.com/in/ZoomZoombaby",
             "jobprofile": "https://linkedin.com/in/profilemaster",
@@ -31,15 +31,15 @@ function App() {
             "proficiency": "b45",
             "proof": "a proof?"
         }],
-        jobAndExperience :[{
+        jobAndExperience: [{
             "id": 0,
             "name": "Diskjockey",
             "employer": "Magenta Club",
-            "start" : "2012",
+            "start": "2012",
             "end": "2015",
             "descriptions": [{
-                    "id": 0,
-                    "description": "cockbreaking"
+                "id": 0,
+                "description": "cockbreaking"
             }]
         }]
     })
@@ -47,10 +47,10 @@ function App() {
         personal: {
             "first name": "Borchst",
             "second name": "Horchst",
-            "title" : "Professor",
-            "photo" : "dummy",
+            "title": "Professor",
+            "photo": "dummy",
             "street and nr": "Somewhere streeets 48",
-            "email" : "somewhere@example.com",
+            "email": "somewhere@example.com",
             "phone": "0234 234234 23424",
             "github": "https://github.com/in/ZoomZoombaby",
             "jobprofile": "https://linkedin.com/in/profilemaster",
@@ -58,7 +58,7 @@ function App() {
         },
         education: [],
         certsAndSkills: [],
-        jobAndExperience :[]
+        jobAndExperience: []
 
     })
     //only for the personal, photo requires something else until I get it
@@ -76,7 +76,7 @@ function App() {
                 [e.target.name]: e.target.value
             }
         })
-        console.log(information.personal)
+
     }
 
     function handleEducationListChildrenInput(educationObject) {
@@ -87,19 +87,17 @@ function App() {
     };
 
     function handleCertsAndSkillsChildrenInput(certsAndSkillsObject) {
-            console.log((certsAndSkillsObject))
-            setInformation({
-                ...information,
-                certsAndSkills: [...information.certsAndSkills, certsAndSkillsObject]
-            })
+        setInformation({
+            ...information,
+            certsAndSkills: [...information.certsAndSkills, certsAndSkillsObject]
+        })
     }
-    
+
     function handleJobsAndExperiencesChildrenInput(jobAndExperienceObject) {
-       setInformation({
+        setInformation({
             ...information,
             jobAndExperience: [...information.jobAndExperience, jobAndExperienceObject]
         })
-        console.log(information.jobAndExperience)
     }
 
     return (
@@ -117,7 +115,7 @@ function App() {
                             handleInputCertsAndSkillsChildren={handleCertsAndSkillsChildrenInput}
                             handleNewCertsAndSkillsChildren={information.certsAndSkills}
                             handleInputJobsAndExperiencesChildren={handleJobsAndExperiencesChildrenInput}
-                            handleNewJobsAndExperiencesChildren={information.jobAndExperience}
+                            getInformation={information}
                         />
                     </div>
                 </section>

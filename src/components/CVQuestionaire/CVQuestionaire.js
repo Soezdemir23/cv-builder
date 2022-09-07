@@ -2,14 +2,14 @@ import './CVQuestionaire.css'
 
 
 function CVQuestionaire({
-                            handleInputChangeChild,
-                            handleInputEducationListChildren,
-                            handleNewEducationListChildren,
-                            handleInputCertsAndSkillsChildren,
-                            handleNewCertsAndSkillsChildren,
-                            handleInputJobsAndExperiencesChildren,
-                            handleNewJobsAndExperiencesChildren
-                        }) {
+    handleInputChangeChild,
+    handleInputEducationListChildren,
+    handleNewEducationListChildren,
+    handleInputCertsAndSkillsChildren,
+    handleNewCertsAndSkillsChildren,
+    handleInputJobsAndExperiencesChildren,
+    getInformation
+}) {
     return (
         <>
             <div id={"cvq-wrapper"}>
@@ -20,18 +20,18 @@ function CVQuestionaire({
                     <div className={""}>
                         <input onChange={handleInputChangeChild} placeholder={"First name"} name={"first name"}></input>
                         <input onChange={handleInputChangeChild} placeholder={"Second name"}
-                               name={"second name"}></input>
+                            name={"second name"}></input>
                         <input onChange={handleInputChangeChild} placeholder={"title"} name={"title"}></input>
                         <input type={"file"} placeholder={"Photo"} name={"photo"}></input>
                         <input onChange={handleInputChangeChild} placeholder={"Street name and number"}
-                               name={"street and nr"}></input>
+                            name={"street and nr"}></input>
                         <input onChange={handleInputChangeChild} placeholder={"Email Address"} name={"email"}></input>
                         <input onChange={handleInputChangeChild} placeholder={"Phone number"} name={"phone"}></input>
                         <input onChange={handleInputChangeChild} placeholder={"Github profile"} name={"github"}></input>
                         <input onChange={handleInputChangeChild} placeholder={"Preferred Jobsite Profile"}
-                               name={"jobprofile"}></input>
+                            name={"jobprofile"}></input>
                         <textarea rows={4} onChange={handleInputChangeChild} placeholder={"Describe yourself"}
-                                  name={"self"}></textarea>
+                            name={"self"}></textarea>
                     </div>
                 </section>
                 {/*Add the information like education*/}
@@ -61,10 +61,8 @@ function CVQuestionaire({
                     <ul className={"cvq-ul"}>
                         <JobAndExperienceLists
                             handleInputFromJobAndExperienceLists={handleInputJobsAndExperiencesChildren}
-                            NewJobAndExperienceListsChildren={handleNewJobsAndExperiencesChildren}
-
+                            getInformation={getInformation}
                         />
-
                     </ul>
                 </section>
             </div>
@@ -72,43 +70,99 @@ function CVQuestionaire({
     )
 }
 
+function DescriptionLists({ descriptions, getDescription }) {
 
-function JobAndExperienceLists({handleInputFromJobAndExperienceLists, newJobsAndExperiencesListsChildren}) {
+}
+/*
+When you add your job, you actually pass it into an object.
+    When you press add in the job description, put it into the description object
+    Then re-render the the same component with the additional list
+When you also add a short description of your jobs, you first
+ */
+function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInformation }) {
     let jobAndExperienceObject = {}
+    let descriptions = []
+    console.log("inside JobsAndExperience", getInformation)
 
     function handleChange(e) {
         jobAndExperienceObject[e.target.name] = e.target.value
     }
-
     function handleClick() {
-        console.log(jobAndExperienceObject)
         handleInputFromJobAndExperienceLists(jobAndExperienceObject)
     }
 
-    console.log("read", newJobsAndExperiencesListsChildren)
-    return (
-        <li>
+    function handleDelete() {
+        console.log("")
+    }
+
+    if (getInformation.jobAndExperience.length > 0) {
+        let current = getInformation.jobAndExperience.map((element, index) => {
+            return (
+                <li key={index} data-key={index}>
+                    <input onChange={handleChange} placeholder={"Job title"} name={"name"} required={true}>element.name</input>
+                    <input onChange={handleChange} placeholder={"Employer"} name={"employer"}>element.employer</input>
+                    <input onChange={handleChange} placeholder={"Start"} name={"start"}>element.start</input>
+                    <input onChange={handleChange} placeholder={"End"} name={"end"}>element.end</input>
+                    <ul>
+                        {/*This is going to be the next component*/
+                         /* When I click on this after changing the content.
+                          * I want it to add the description into the description array.
+                          * Then I want to rerender it here*/}
+                        <DescriptionLists
+                        />
+                    </ul>
+                    <button onClick={handleClick}>Update</button>
+                    <button >Remove</button>
+                </li>
+            )
+        })
+
+        current.push(<li key={"zero"} data-key={"zero"}>
             <input onChange={handleChange} placeholder={"Job title"} name={"name"} required={true}></input>
             <input onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
             <input onChange={handleChange} placeholder={"Start"} name={"start"}></input>
             <input onChange={handleChange} placeholder={"End"} name={"end"}></input>
-            <ul>{/*This is going to be the next component*/}
-                <li>
-                    <input placeholder={"Short description of job"}></input>
-                    <button>Add</button>
-                </li>
+            <ul>
+                {/*This is going to be the next component*/
+                         /* When I click on this after changing the content.
+                          * I want it to add the description into the description array.
+                          * Then I want to rerender it here*/}
+                <DescriptionLists
+                />
             </ul>
             <button onClick={handleClick}>Add</button>
-        </li>
-    )
-}
 
-function CertsAndSkills({handleInputFromEducationLists, newCertsAndSkillsListChildren, handleDelete, handleUpdate}) {
+        </li>)
+        return (current)
+    } else {
+        return (
+            <li key={"dummy"}>
+                <input onChange={handleChange} placeholder={"Job title"} name={"name"} required={true}></input>
+                <input onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
+                <input onChange={handleChange} placeholder={"Start"} name={"start"}></input>
+                <input onChange={handleChange} placeholder={"End"} name={"end"}></input>
+                <ul>
+                    {/*This is going to be the next component*/
+                         /* When I click on this after changing the content.
+                          * I want it to add the description into the description array.
+                          * Then I want to rerender it here*/}
+                    <DescriptionLists
+                    />
+                </ul>
+                <button onClick={handleClick}>Add</button>
+            </li>
+        )
+    }
+
+
+
+
+}
+function CertsAndSkills({ handleInputFromEducationLists, newCertsAndSkillsListChildren, handleDelete, handleUpdate }) {
     let certsAndSkillsChildrenObject = {}
 
     function handleChange(e) {
         certsAndSkillsChildrenObject[e.target.name] = e.target.value
-
     }
 
     function handleInput() {
@@ -116,17 +170,17 @@ function CertsAndSkills({handleInputFromEducationLists, newCertsAndSkillsListChi
         handleInputFromEducationLists(certsAndSkillsChildrenObject)
     }
 
-    if (newCertsAndSkillsListChildren.length > 0) {
+    if (newCertsAndSkillsListChildren != null) {
         let current = newCertsAndSkillsListChildren.map((element, index) => {
             return (
                 <>
                     <li key={index} data-key={index}>
                         <input onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
-                               value={element.name}></input>
+                            value={element.name}></input>
                         <input onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}
-                               value={element.proficiency}></input>
+                            value={element.proficiency}></input>
                         <input onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}
-                               value={element.proof}></input>
+                            value={element.proof}></input>
                         <button>Update</button>
                         <button>Delete</button>
                     </li>
@@ -136,7 +190,7 @@ function CertsAndSkills({handleInputFromEducationLists, newCertsAndSkillsListChi
             <>
                 <li key={"zero"} data-key={"zero"}>
                     <input onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
-                           required={true}></input>
+                        required={true}></input>
                     <input onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}></input>
                     <input onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
                     <button onClick={handleInput}>Add</button>
@@ -148,7 +202,7 @@ function CertsAndSkills({handleInputFromEducationLists, newCertsAndSkillsListChi
     }
 
     return (
-        <li>
+        <li key={"zero"}>
             <input onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"} required={true}></input>
             <input onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}></input>
             <input onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
@@ -159,7 +213,7 @@ function CertsAndSkills({handleInputFromEducationLists, newCertsAndSkillsListChi
 }
 
 
-function EducationLists({handleInput, newEducationListChildren, handleDelete}) {
+function EducationLists({ handleInput, newEducationListChildren, handleDelete }) {
     let educationObject = {}
 
 
@@ -174,17 +228,17 @@ function EducationLists({handleInput, newEducationListChildren, handleDelete}) {
     }
 
 
-    if (newEducationListChildren.length > 0) {
+    if (newEducationListChildren.length != null) {
         let current = newEducationListChildren.map((element, index) => {
             return (
                 <>
                     <li data-key={index} key={index}>
                         <input onChange={handleChange} placeholder={"school or college"} name={"name"}
-                               value={element.name}></input>
+                            value={element.name}></input>
                         <input onChange={handleChange} placeholder={"degree"} name={"degree"}
-                               value={element.degree}></input>
+                            value={element.degree}></input>
                         <input onChange={handleChange} placeholder={"Start"} name={"start"}
-                               value={element.start}></input>
+                            value={element.start}></input>
                         <input onChange={handleChange} placeholder={"End"} name={"end"} value={element.end}></input>
                         <div>
                             <label htmlFor={"finished"}>Finished</label>
@@ -197,18 +251,18 @@ function EducationLists({handleInput, newEducationListChildren, handleDelete}) {
             )
         })
         current.push(<>
-                <li data-key={"zero"} key={"zero"}>
-                    <input onChange={handleChange} placeholder={"school or college"} name={"name"}></input>
-                    <input onChange={handleChange} placeholder={"degree"} name={"degree"}></input>
-                    <input onChange={handleChange} placeholder={"Start"} name={"start"}></input>
-                    <input onChange={handleChange} placeholder={"End"} name={"end"}></input>
-                    <div>
-                        <label htmlFor={"finished"}>Finished</label>
-                        <input id={"finished"} type={"checkbox"} name={"finished"}></input>
-                    </div>
-                    <button onClick={handleAdd}>Add</button>
-                </li>
-            </>
+            <li data-key={"zero"} key={"zero"}>
+                <input onChange={handleChange} placeholder={"school or college"} name={"name"}></input>
+                <input onChange={handleChange} placeholder={"degree"} name={"degree"}></input>
+                <input onChange={handleChange} placeholder={"Start"} name={"start"}></input>
+                <input onChange={handleChange} placeholder={"End"} name={"end"}></input>
+                <div>
+                    <label htmlFor={"finished"}>Finished</label>
+                    <input id={"finished"} type={"checkbox"} name={"finished"}></input>
+                </div>
+                <button onClick={handleAdd}>Add</button>
+            </li>
+        </>
         )
 
         return (current)
