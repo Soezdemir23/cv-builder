@@ -70,13 +70,15 @@ function CVQuestionaire({
     )
 }
 
-function DescriptionLists({ descriptions, getDescription }) {
+function DescriptionLists({ descriptions, getDescriptions }) {
 
-    return (
-        <li>
-            <input></input>
-            <button></button>
-        </li>)
+    if (getDescriptions)
+
+        return (
+            <li>
+                <input type={"text"} name="short"></input>
+                <button>Add</button>
+            </li>)
 }
 /*
 When you add your job, you actually pass it into an object.
@@ -86,19 +88,27 @@ When you also add a short description of your jobs, you first
  */
 function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInformation }) {
     let jobAndExperienceObject = {}
-    console.log("inside JobsAndExperience", getInformation)
 
     function handleChange(e) {
-        jobAndExperienceObject[e.target.name] = e.target.defaultValue
+        jobAndExperienceObject[e.target.name] = e.target.value
+        console.log(jobAndExperienceObject)
     }
+
     function handleClick() {
+        if (jobAndExperienceObject.length == undefined) {
+            jobAndExperienceObject["id"] = 0;
+            console.log("show length of that object list", getInformation.length)
+        } else {
+            jobAndExperienceObject["id"] = getInformation.length
+        }
         handleInputFromJobAndExperienceLists(jobAndExperienceObject)
     }
 
     function handleDelete() {
-        console.log("")
+
     }
 
+    console.log("getInformation: ", getInformation)
     if (getInformation.jobAndExperience.length > 0) {
 
         let current = getInformation.jobAndExperience.map((information, index) => (
@@ -106,14 +116,29 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
                 <li key={index} data-key={index}>
                     {console.table(information)}
                     <input type="text" onChange={handleChange} placeholder={"Job title"} name={"name"} defaultValue={information.name}></input>
-                    <input type="text" onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
-                    <input type="text" onChange={handleChange} placeholder={"Start"} name={"start"}></input>
-                    <input type="text" onChange={handleChange} placeholder={"End"} name={"end"}></input>
+                    <input type="text" onChange={handleChange} placeholder={"Employer"} name={"employer"} defaultValue={information.employer}></input>
+                    <input type="text" onChange={handleChange} placeholder={"Start"} name={"start"} defaultValue={information.start}></input>
+                    <input type="text" onChange={handleChange} placeholder={"End"} name={"end"} defaultValue={information.end}></input>
+                    <DescriptionLists />
                     <button onClick={handleClick}>Update</button>
                     <button onClick={handleDelete}>Delete</button>
                 </li>
             </>
         ))
+
+        current.push(
+            <>
+                <li key={"zero"} data-key={"zero"}>
+
+                    <input type="text" onChange={handleChange} placeholder={"Job title"} name={"name"} ></input>
+                    <input type="text" onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
+                    <input type="text" onChange={handleChange} placeholder={"Start"} name={"start"}></input>
+                    <input type="text" onChange={handleChange} placeholder={"End"} name={"end"}></input>
+                    <DescriptionLists />
+                    <button onClick={handleClick}>Add</button>
+                </li>
+            </>
+        )
         return (current)
     } else {
         return (
@@ -123,10 +148,10 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
                 <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"}></input>
                 <ul>
-                    {/*This is going to be the next component*/
-                         /* When I click on this after changing the content.
-                          * I want it to add the description into the description array.
-                          * Then I want to rerender it here*/}
+
+                    <DescriptionLists
+
+                    />
 
                 </ul>
                 <button onClick={handleClick}>Add</button>
@@ -209,6 +234,7 @@ function EducationLists({ handleInput, newEducationListChildren, handleDelete })
 
 
     if (newEducationListChildren.length != null) {
+
         let current = newEducationListChildren.map((element, index) => {
             return (
                 <>
