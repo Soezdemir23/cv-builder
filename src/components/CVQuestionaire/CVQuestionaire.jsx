@@ -70,15 +70,36 @@ function CVQuestionaire({
     )
 }
 
-function DescriptionLists({ descriptions, getDescriptions }) {
-
-    if (getDescriptions)
-
+function DescriptionLists({ handleDescriptions, getDescriptions }) {
+    console.log(getDescriptions)
+    if (getDescriptions.length === 0) {
         return (
             <li>
-                <input type={"text"} name="short"></input>
-                <button>Add</button>
+                <input type={"text"} name="short" ></input>
+                <button onClick={handleDescriptions}>Add</button>
             </li>)
+    } else {
+        console.log(getDescriptions.length)
+        let descriptions = getDescriptions.map((descriptionObject) => {
+            return (
+                <li key={descriptionObject.id} data-key={descriptionObject.id}>
+                    <input type={"text"} name="short" defaultValue={descriptionObject.short}></input>
+                    <button>Change</button>
+                    <button>Remove</button>
+                </li>
+            )
+        })
+        descriptions.push(
+            <li>
+                <input type={"text"} name="short" ></input>
+                <button>Add</button>
+            </li>
+        )
+        return (descriptions)
+
+    }
+
+
 }
 /*
 When you add your job, you actually pass it into an object.
@@ -88,27 +109,42 @@ When you also add a short description of your jobs, you first
  */
 function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInformation }) {
     let jobAndExperienceObject = {}
+    let descriptions = []
 
     function handleChange(e) {
         jobAndExperienceObject[e.target.name] = e.target.value
-        console.log(jobAndExperienceObject)
+
     }
 
     function handleClick() {
-        if (jobAndExperienceObject.length == undefined) {
-            jobAndExperienceObject["id"] = 0;
-            console.log("show length of that object list", getInformation.length)
+        if (Object.keys(jobAndExperienceObject).length >= 4) {
+            if (getInformation.jobAndExperience.length === undefined) {
+                jobAndExperienceObject["id"] = 0
+            } else {
+                jobAndExperienceObject["id"] = getInformation.jobAndExperience.length
+            }
+            handleInputFromJobAndExperienceLists(jobAndExperienceObject)
         } else {
-            jobAndExperienceObject["id"] = getInformation.length
+            console.log("Object is not complete")
         }
-        handleInputFromJobAndExperienceLists(jobAndExperienceObject)
     }
 
     function handleDelete() {
 
     }
 
-    console.log("getInformation: ", getInformation)
+    function handleDescriptionClick(e) {
+
+        if (e.target.previousSibling.value.length > 0) {
+            console.log("clicked")
+            let object = {}
+            object["id"] = descriptions.length
+            object[e.target.previousSibling.name] = e.target.previousSibling.value
+            descriptions.push(object)
+            console.log("descriptions in handleClick", descriptions)
+        }
+
+    }
     if (getInformation.jobAndExperience.length > 0) {
 
         let current = getInformation.jobAndExperience.map((information, index) => (
@@ -134,7 +170,11 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
                     <input type="text" onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
                     <input type="text" onChange={handleChange} placeholder={"Start"} name={"start"}></input>
                     <input type="text" onChange={handleChange} placeholder={"End"} name={"end"}></input>
-                    <DescriptionLists />
+                    <DescriptionLists
+                        handleDescriptions={handleDescriptionClick}
+                        getDescriptions={descriptions}
+
+                    />
                     <button onClick={handleClick}>Add</button>
                 </li>
             </>
@@ -144,12 +184,14 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
         return (
             <li key={"dummy"}>
                 <input type={"text"} onChange={handleChange} placeholder={"Job title"} name={"name"} required={true}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
+                <input type={"text"} onChange={handleChange} placeholder={"Employer"} name={"employer"} required={true}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"}></input>
                 <ul>
 
                     <DescriptionLists
+                        getDescriptions={descriptions}
+                        handleDescriptions={handleDescriptionClick}
 
                     />
 
