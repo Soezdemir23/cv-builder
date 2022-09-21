@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './CVQuestionaire.css'
 
 
@@ -71,33 +72,6 @@ function CVQuestionaire({
 }
 
 function DescriptionLists({ handleDescriptions, getDescriptions }) {
-    console.log(getDescriptions)
-    if (getDescriptions.length === 0) {
-        return (
-            <li>
-                <input type={"text"} name="short" ></input>
-                <button onClick={handleDescriptions}>Add</button>
-            </li>)
-    } else {
-        console.log(getDescriptions.length)
-        let descriptions = getDescriptions.map((descriptionObject) => {
-            return (
-                <li key={descriptionObject.id} data-key={descriptionObject.id}>
-                    <input type={"text"} name="short" defaultValue={descriptionObject.short}></input>
-                    <button>Change</button>
-                    <button>Remove</button>
-                </li>
-            )
-        })
-        descriptions.push(
-            <li>
-                <input type={"text"} name="short" ></input>
-                <button>Add</button>
-            </li>
-        )
-        return (descriptions)
-
-    }
 
 
 }
@@ -109,7 +83,7 @@ When you also add a short description of your jobs, you first
  */
 function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInformation }) {
     let jobAndExperienceObject = {}
-    let descriptions = []
+    let [descriptions, setDescription] = useState([])
 
     function handleChange(e) {
         jobAndExperienceObject[e.target.name] = e.target.value
@@ -134,16 +108,6 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
     }
 
     function handleDescriptionClick(e) {
-
-        if (e.target.previousSibling.value.length > 0) {
-            console.log("clicked")
-            let object = {}
-            object["id"] = descriptions.length
-            object[e.target.previousSibling.name] = e.target.previousSibling.value
-            descriptions.push(object)
-            console.log("descriptions in handleClick", descriptions)
-        }
-
     }
     if (getInformation.jobAndExperience.length > 0) {
 
@@ -220,29 +184,29 @@ function CertsAndSkills({ handleInputFromEducationLists, newCertsAndSkillsListCh
     if (newCertsAndSkillsListChildren != null) {
         let current = newCertsAndSkillsListChildren.map((element, index) => {
             return (
-                <>
-                    <li key={index} data-key={index}>
-                        <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
-                            defaultValue={element.name}></input>
-                        <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}
-                            defaultValue={element.proficiency}></input>
-                        <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}
-                            defaultValue={element.proof}></input>
-                        <button>Update</button>
-                        <button>Delete</button>
-                    </li>
-                </>)
+
+                <li key={index} data-key={index}>
+                    <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
+                        defaultValue={element.name}></input>
+                    <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}
+                        defaultValue={element.proficiency}></input>
+                    <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}
+                        defaultValue={element.proof}></input>
+                    <button>Update</button>
+                    <button>Delete</button>
+                </li>
+            )
         })
         current.push(
-            <>
-                <li key={"zero"} data-key={"zero"}>
-                    <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
-                        required={true}></input>
-                    <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}></input>
-                    <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
-                    <button onClick={handleInput}>Add</button>
-                </li>
-            </>
+
+            <li key={"zero"} data-key={"zero"}>
+                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
+                    required={true}></input>
+                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}></input>
+                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
+                <button onClick={handleInput}>Add</button>
+            </li>
+
         )
         return (current)
 
@@ -279,26 +243,26 @@ function EducationLists({ handleInput, newEducationListChildren, handleDelete })
 
         let current = newEducationListChildren.map((element, index) => {
             return (
-                <>
-                    <li data-key={index} key={index}>
-                        <input type={"text"} onChange={handleChange} placeholder={"school or college"} name={"name"}
-                            defaultValue={element.name}></input>
-                        <input type={"text"} onChange={handleChange} placeholder={"degree"} name={"degree"}
-                            defaultValue={element.degree}></input>
-                        <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}
-                            defaultValue={element.start}></input>
-                        <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"} defaultValue={element.end}></input>
-                        <div>
-                            <label htmlFor={"finished"}>Finished</label>
-                            <input id={"finished"} type={"checkbox"} name={"finished"}></input>
-                        </div>
-                        <button onClick={handleAdd}>Update</button>
-                        <button onClick={handleDelete}>Delete</button>
-                    </li>
-                </>
+
+                <li data-key={index} key={index}>
+                    <input type={"text"} onChange={handleChange} placeholder={"school or college"} name={"name"}
+                        defaultValue={element.name}></input>
+                    <input type={"text"} onChange={handleChange} placeholder={"degree"} name={"degree"}
+                        defaultValue={element.degree}></input>
+                    <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}
+                        defaultValue={element.start}></input>
+                    <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"} defaultValue={element.end}></input>
+                    <div>
+                        <label htmlFor={"finished"}>Finished</label>
+                        <input id={"finished"} type={"checkbox"} name={"finished"}></input>
+                    </div>
+                    <button onClick={handleAdd}>Update</button>
+                    <button onClick={handleDelete}>Delete</button>
+                </li>
+
             )
         })
-        current.push(<>
+        current.push(
             <li data-key={"zero"} key={"zero"}>
                 <input type={"text"} onChange={handleChange} placeholder={"school or college"} name={"name"}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"degree"} name={"degree"}></input>
@@ -310,7 +274,7 @@ function EducationLists({ handleInput, newEducationListChildren, handleDelete })
                 </div>
                 <button onClick={handleAdd}>Add</button>
             </li>
-        </>
+
         )
 
         return (current)
