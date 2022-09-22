@@ -115,7 +115,7 @@ function App() {
                             handleInputCertsAndSkillsChildren={handleCertsAndSkillsChildrenInput}
                             handleNewCertsAndSkillsChildren={information.certsAndSkills}
                             handleInputJobsAndExperiencesChildren={handleJobsAndExperiencesChildrenInput}
-                            getInformation={information}
+                            handleNewJobsAndExperienceChildren={information.jobAndExperience}
                         />
                     </div>
                 </section>
