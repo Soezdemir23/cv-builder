@@ -58,12 +58,3 @@ li>ul>li>button {
 textarea {
     rows: 45;
 }
-
-#jae-ul{
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-#jae-ul > li {
-    max-width: 98%;
-}

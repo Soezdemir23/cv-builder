@@ -72,30 +72,7 @@ function CVQuestionaire({
 }
 
 function DescriptionLists({ handleDescriptions, getDescriptions }) {
-    if (getDescriptions.length > 0) {
-        console.log("inside", getDescriptions)
-        let current = getDescriptions.map(description => (
-            <li key={description.id} data-key={description.id}>
-                <input defaultValue={description.short}></input>
-                <button>Change</button>
-                <button>Delete</button>
 
-            </li>
-        ))
-        current.push(
-            <li>
-                <input type="text" name="short" />
-                <button onClick={handleDescriptions}>Add</button>
-            </li>)
-        return (current)
-    }
-    return (
-
-        <li>
-            <input type="text" name="short" />
-            <button onClick={handleDescriptions}>Add</button>
-        </li>
-    )
 
 }
 /*
@@ -131,10 +108,6 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
     }
 
     function handleDescriptionClick(e) {
-        console.log("I got clicked")
-        console.log(e.target.previousSibling.value)
-        setDescription([...descriptions, { id: descriptions.length, short: e.target.previousSibling.value }])
-        console.log(descriptions)
     }
     if (getInformation.jobAndExperience.length > 0) {
 
@@ -146,10 +119,7 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
                     <input type="text" onChange={handleChange} placeholder={"Employer"} name={"employer"} defaultValue={information.employer}></input>
                     <input type="text" onChange={handleChange} placeholder={"Start"} name={"start"} defaultValue={information.start}></input>
                     <input type="text" onChange={handleChange} placeholder={"End"} name={"end"} defaultValue={information.end}></input>
-
-                    <ul id='jae-ul'>
-                        <DescriptionLists />
-                    </ul>
+                    <DescriptionLists />
                     <button onClick={handleClick}>Update</button>
                     <button onClick={handleDelete}>Delete</button>
                 </li>
@@ -164,13 +134,11 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
                     <input type="text" onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
                     <input type="text" onChange={handleChange} placeholder={"Start"} name={"start"}></input>
                     <input type="text" onChange={handleChange} placeholder={"End"} name={"end"}></input>
-                    <ul id='jae-ul'>
-                        <DescriptionLists
-                            handleDescriptions={handleDescriptionClick}
-                            getDescriptions={descriptions}
+                    <DescriptionLists
+                        handleDescriptions={handleDescriptionClick}
+                        getDescriptions={descriptions}
 
-                        />
-                    </ul>
+                    />
                     <button onClick={handleClick}>Add</button>
                 </li>
             </>
@@ -183,7 +151,7 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, getInform
                 <input type={"text"} onChange={handleChange} placeholder={"Employer"} name={"employer"} required={true}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"}></input>
-                <ul id='jae-ul'>
+                <ul>
 
                     <DescriptionLists
                         getDescriptions={descriptions}
