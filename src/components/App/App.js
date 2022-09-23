@@ -94,6 +94,7 @@ function App() {
     }
 
     function handleJobsAndExperiencesChildrenInput(jobAndExperienceObject) {
+        console.log('inside app.js', jobAndExperienceObject)
         setInformation({
             ...information,
             jobAndExperience: [...information.jobAndExperience, jobAndExperienceObject]
