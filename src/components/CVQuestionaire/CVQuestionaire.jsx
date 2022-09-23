@@ -134,12 +134,12 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, newJobAnd
 
         current.push(
 
-            <li key={"zero"} data-key={"zero"}>
+            <li key={"zero"} data-key={"zero"} id="zero-child">
 
-                <input type="text" onChange={handleChange} placeholder={"Job title"} name={"name"} ></input>
-                <input type="text" onChange={handleChange} placeholder={"Employer"} name={"employer"}></input>
-                <input type="text" onChange={handleChange} placeholder={"Start"} name={"start"}></input>
-                <input type="text" onChange={handleChange} placeholder={"End"} name={"end"}></input>
+                <input type={"text"} onChange={handleChange} placeholder={"Job title"} name={"name"} defaultValue=""></input>
+                <input type={"text"} onChange={handleChange} placeholder={"Employer"} name={"employer"} defaultValue=""></input>
+                <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"} defaultValue=""></input>
+                <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"} defaultValue=""></input>
                 <DescriptionLists
                     handleDescriptions={handleDescriptionClick}
                     getDescriptions={descriptions}
@@ -151,8 +151,9 @@ function JobAndExperienceLists({ handleInputFromJobAndExperienceLists, newJobAnd
         )
         return (current)
     } else {
+
         return (
-            <li key={"dummy"}>
+            <li key={"dummy"} >
                 <input type={"text"} onChange={handleChange} placeholder={"Job title"} name={"name"} required={true}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"Employer"} name={"employer"} required={true}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}></input>
@@ -178,53 +179,53 @@ function CertsAndSkills({ handleInputFromEducationLists, newCertsAndSkillsListCh
     let certsAndSkillsChildrenObject = {}
 
     function handleChange(e) {
-        certsAndSkillsChildrenObject[e.target.name] = e.target.defaultValue
+        certsAndSkillsChildrenObject[e.target.name] = e.target.value
+        console.log(certsAndSkillsChildrenObject)
     }
 
     function handleInput() {
-
+        console.log(certsAndSkillsChildrenObject)
         handleInputFromEducationLists(certsAndSkillsChildrenObject)
     }
 
-    if (newCertsAndSkillsListChildren != null) {
-        let current = newCertsAndSkillsListChildren.map((element, index) => {
-            return (
+    if (newCertsAndSkillsListChildren.length > 0) {
+        console.log("more certs")
+        let current = newCertsAndSkillsListChildren.map((element, index) => (
 
-                <li key={index} data-key={index}>
-                    <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
-                        defaultValue={element.name}></input>
-                    <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}
-                        defaultValue={element.proficiency}></input>
-                    <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}
-                        defaultValue={element.proof}></input>
-                    <button>Update</button>
-                    <button>Delete</button>
-                </li>
-            )
-        })
+            <li key={index} data-key={index}>
+                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
+                    defaultValue={element.name}></input>
+                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}
+                    defaultValue={element.proficiency}></input>
+                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}
+                    defaultValue={element.proof}></input>
+                <button>Update</button>
+                <button>Delete</button>
+            </li>
+        ))
         current.push(
 
             <li key={"zero"} data-key={"zero"}>
-                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
-                    required={true}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
+
+                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"} defaultValue=""></input>
+                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"} defaultValue=""></input>
+                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"} defaultValue=""></input>
                 <button onClick={handleInput}>Add</button>
-            </li>
+            </li >
 
         )
         return (current)
-
+    } else {
+        console.log("no certs")
+        return (
+            <li key={"dummy"} data-key={"dummy"} >
+                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"} ></input>
+                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"} ></input>
+                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
+                <button onClick={handleInput}>Add</button>
+            </li>
+        )
     }
-
-    return (
-        <li key={"zero"}>
-            <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"} required={true}></input>
-            <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}></input>
-            <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
-            <button onClick={handleInput}>Add</button>
-        </li>
-    )
 
 }
 
@@ -240,11 +241,12 @@ function EducationLists({ handleInput, newEducationListChildren, handleDelete })
     function handleAdd() {
 
         educationObject["id"] = newEducationListChildren.length
+        console.log(educationObject);
         handleInput(educationObject)
     }
 
 
-    if (newEducationListChildren.length != null) {
+    if (newEducationListChildren.length > 0) {
 
         let current = newEducationListChildren.map((element, index) => {
             return (
@@ -256,7 +258,7 @@ function EducationLists({ handleInput, newEducationListChildren, handleDelete })
                         defaultValue={element.degree}></input>
                     <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}
                         defaultValue={element.start}></input>
-                    <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"} defaultValue={element.end}></input>
+                    <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"}></input>
                     <div>
                         <label htmlFor={"finished"}>Finished</label>
                         <input id={"finished"} type={"checkbox"} name={"finished"}></input>
@@ -270,12 +272,12 @@ function EducationLists({ handleInput, newEducationListChildren, handleDelete })
         current.push(
             <li data-key={"zero"} key={"zero"}>
                 <input type={"text"} onChange={handleChange} placeholder={"school or college"} name={"name"}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"degree"} name={"degree"}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"}></input>
+                <input type={"text"} onChange={handleChange} placeholder={"degree"} name={"degree"} ></input>
+                <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"} ></input>
+                <input type={"text"} onChange={handleChange} placeholder={"End"} name={"end"} ></input>
                 <div>
                     <label htmlFor={"finished"}>Finished</label>
-                    <input id={"finished"} type={"checkbox"} name={"finished"}></input>
+                    <input id={"finished"} type={"checkbox"} name={"finished"} defaultValue={false}></input>
                 </div>
                 <button onClick={handleAdd}>Add</button>
             </li>
@@ -285,7 +287,7 @@ function EducationLists({ handleInput, newEducationListChildren, handleDelete })
         return (current)
     } else {
         return (
-            <li>
+            <li key={"dummy"}>
                 <input type={"text"} onChange={handleChange} placeholder={"school or college"} name={"name"}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"degree"} name={"degree"}></input>
                 <input type={"text"} onChange={handleChange} placeholder={"Start"} name={"start"}></input>
