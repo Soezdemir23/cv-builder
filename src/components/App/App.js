@@ -1,4 +1,4 @@
-import "./App.css"
+import "./App.css";
 import CVQuestionaire from "../CVQuestionaire/CVQuestionaire";
 import { useState } from "react";
 
@@ -42,7 +42,7 @@ function App() {
                 "description": "cockbreaking"
             }]
         }]
-    })
+    });
     const [information, setInformation] = useState({
         personal: {
             "first name": "Borchst",
@@ -60,14 +60,14 @@ function App() {
         certsAndSkills: [],
         jobAndExperience: []
 
-    })
+    });
     //only for the personal, photo requires something else until I get it
     function handleInputChangeParent(e) {
 
         setInformation({
             ...information,
             education: []
-        })
+        });
 
         setInformation({
             ...information,
@@ -75,7 +75,7 @@ function App() {
                 ...information.personal,
                 [e.target.name]: e.target.value
             }
-        })
+        });
 
     }
 
@@ -83,48 +83,48 @@ function App() {
         setInformation({
             ...information,
             education: [...information.education, educationObject]
-        })
+        });
     };
 
     function handleCertsAndSkillsChildrenInput(certsAndSkillsObject) {
         setInformation({
             ...information,
             certsAndSkills: [...information.certsAndSkills, certsAndSkillsObject]
-        })
+        });
     }
 
     function handleJobsAndExperiencesChildrenInput(jobAndExperienceObject) {
-        console.log('inside app.js', jobAndExperienceObject)
+        console.log('inside app.js', jobAndExperienceObject);
         setInformation({
             ...information,
             jobAndExperience: [...information.jobAndExperience, jobAndExperienceObject]
-        })
+        });
     }
 
     return (
         <div id="root">
-            <header id={"app-header"}>
+            <header id={ "app-header" }>
                 <h1>Hello World</h1>
             </header>
-            <div id={"wrapper"}>
-                <section id={"cv-questioner"}>
+            <div id={ "wrapper" }>
+                <section id={ "cv-questioner" }>
                     <div>
                         <CVQuestionaire
-                            handleInputChangeChild={handleInputChangeParent}
-                            handleInputEducationListChildren={handleEducationListChildrenInput}
-                            handleNewEducationListChildren={information.education}
-                            handleInputCertsAndSkillsChildren={handleCertsAndSkillsChildrenInput}
-                            handleNewCertsAndSkillsChildren={information.certsAndSkills}
-                            handleInputJobsAndExperiencesChildren={handleJobsAndExperiencesChildrenInput}
-                            handleNewJobsAndExperienceChildren={information.jobAndExperience}
+                            handleInputChangeChild={ handleInputChangeParent }
+                            handleInputEducationListChildren={ handleEducationListChildrenInput }
+                            handleNewEducationListChildren={ information.education }
+                            handleInputCertsAndSkillsChildren={ handleCertsAndSkillsChildrenInput }
+                            handleNewCertsAndSkillsChildren={ information.certsAndSkills }
+                            handleInputJobsAndExperiencesChildren={ handleJobsAndExperiencesChildrenInput }
+                            handleNewJobsAndExperienceChildren={ information.jobAndExperience }
                         />
                     </div>
                 </section>
-                <section id={"cv-result"}>
+                <section id={ "cv-result" }>
                 </section>
             </div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;

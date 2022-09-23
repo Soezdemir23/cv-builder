@@ -1,56 +1,45 @@
 
-function CertsAndSkills({ handleInputFromEducationLists, newCertsAndSkillsListChildren, handleDelete, handleUpdate }) {
-    let certsAndSkillsChildrenObject = {}
-
-    function handleChange(e) {
-        certsAndSkillsChildrenObject[e.target.name] = e.target.value
-        console.log(certsAndSkillsChildrenObject)
-    }
-
-    function handleInput() {
-        console.log(certsAndSkillsChildrenObject)
-        handleInputFromEducationLists(certsAndSkillsChildrenObject)
-    }
-
+function CertsAndSkills() {
+    const newCertsAndSkillsListChildren = [];
     if (newCertsAndSkillsListChildren.length > 0) {
-        console.log("more certs")
+        console.log("more certs");
         let current = newCertsAndSkillsListChildren.map((element, index) => (
 
-            <li key={index} data-key={index}>
-                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"}
-                    defaultValue={element.name}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"}
-                    defaultValue={element.proficiency}></input>
-                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}
-                    defaultValue={element.proof}></input>
+            <li key={ index } data-key={ index }>
+                <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" }
+                    defaultValue={ element.name }></input>
+                <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" }
+                    defaultValue={ element.proficiency }></input>
+                <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" }
+                    defaultValue={ element.proof }></input>
                 <button>Update</button>
                 <button>Delete</button>
             </li>
-        ))
+        ));
         current.push(
 
-            <li key={"zero"} data-key={"zero"}>
+            <li key={ "CAS-zero" } data-key={ "CAS-zero" }>
 
-                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"} defaultValue=""></input>
-                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"} defaultValue=""></input>
-                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"} defaultValue=""></input>
-                <button onClick={handleInput}>Add</button>
+                <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" } defaultValue=""></input>
+                <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" } defaultValue=""></input>
+                <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" } defaultValue=""></input>
+                <button>Add</button>
             </li >
 
-        )
-        return (current)
+        );
+        return (current);
     } else {
-        console.log("no certs")
+        console.log("no certs");
         return (
-            <li key={"dummy"} data-key={"dummy"} >
-                <input type={"text"} onChange={handleChange} placeholder={"Cert or Skillname"} name={"name"} ></input>
-                <input type={"text"} onChange={handleChange} placeholder={"proficiency, optional"} name={"proficiency"} ></input>
-                <input type={"text"} onChange={handleChange} placeholder={"url for optional proof"} name={"proof"}></input>
-                <button onClick={handleInput}>Add</button>
+            <li key={ "CAS-dummy" } data-key={ "CAS-dummy" } >
+                <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" } ></input>
+                <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" } ></input>
+                <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" }></input>
+                <button >Add</button>
             </li>
-        )
+        );
     }
 
 }
 
-export default CertsAndSkills
+export default CertsAndSkills;
