@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-function EducationLists() {
+function EducationLists({ liftEducationUp }) {
     const [education, setEducation] = useState([]);
+    //exclusively for the use for the data entry
     let hand = {};
 
     //if the user enters something inside the entry element, then change the hand object
@@ -28,6 +29,7 @@ function EducationLists() {
             }
         });
         setEducation(objects);
+        liftEducationUp(education);
     };
 
     const handleAddClick = (e) => {
@@ -37,11 +39,13 @@ function EducationLists() {
         for (let i = 0; i < m.length; i++) {
             m[i].type === "text" ? m[i].value = "" : m[i].checked = false;
         }
+        liftEducationUp(education);
     };
 
     const handleDeleteClick = (e) => {
         let id = e.target.dataset.key;
         setEducation(education.filter((education) => education.id !== id));
+        liftEducationUp(education);
     };
 
     return (<> { education.map((element) => (

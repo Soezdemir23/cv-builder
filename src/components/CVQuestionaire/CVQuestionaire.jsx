@@ -10,8 +10,7 @@ function CVQuestionaire() {
     const [full, setFull] = useState({});
 
     const piecePartTogether = (piece) => {
-        setFull({ ...full, piece });
-        console.log(full);
+        console.log(piece);
     };
     return (
         <>
@@ -29,6 +28,7 @@ function CVQuestionaire() {
                     <h3>Education</h3>
                     <ul className={ "cvq-ul" }>
                         <EducationLists
+                            liftEducationUp={ piecePartTogether }
                         />
                     </ul>
                 </section>
