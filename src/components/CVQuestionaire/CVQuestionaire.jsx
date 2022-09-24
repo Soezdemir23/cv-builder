@@ -4,8 +4,15 @@ import EducationLists from '../EducationLists/EducationLists';
 import JobAndExperienceLists from '../JobAndExperienceLists/JobAndExperienceList';
 import CertsAndSkills from '../CertsAndSkills/CertsAndSkills';
 import Personal from '../Personal/Personal';
-function CVQuestionaire({
-}) {
+import { useState } from 'react';
+
+function CVQuestionaire() {
+    const [full, setFull] = useState({});
+
+    const piecePartTogether = (piece) => {
+        setFull({ ...full, piece });
+        console.log(full);
+    };
     return (
         <>
             <div id={ "cvq-wrapper" }>
@@ -13,7 +20,9 @@ function CVQuestionaire({
 
                 <section className={ "cvq-section" }>
                     <h3>Personal</h3>
-                    <Personal />
+                    <Personal
+
+                        liftPersonalUp={ piecePartTogether } />
                 </section>
                 {/*Add the information like education*/ }
                 <section className={ "cvq-section" }>
