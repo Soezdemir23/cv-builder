@@ -3,7 +3,20 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 function CertsAndSkills() {
-    const newCertsAndSkillsListChildren = [];
+    const [certs, setCerts] = useState([])
+    let hand = {}
+
+    const handleEntryChange = (e)=> {
+        e.target.type === "text"?
+        hand[e.target.name] = e.target.value:
+        hand[e.target.name] = e.target.checked;
+    }
+
+
+
+
+
+
     if (newCertsAndSkillsListChildren.length > 0) {
         console.log("more certs");
         let current = newCertsAndSkillsListChildren.map((element, index) => (

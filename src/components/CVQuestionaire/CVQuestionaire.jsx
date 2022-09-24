@@ -9,8 +9,24 @@ import { useState } from 'react';
 function CVQuestionaire() {
     const [full, setFull] = useState({});
 
-    const piecePartTogether = (piece) => {
-        console.log(piece);
+    const piecePartTogether = (piece, area) => {
+        switch (area) {
+            case 'education':
+                setFull({ ...full, "education": piece });
+                break;
+            case 'personal':
+                setFull({ ...full, "personal": piece });
+                break;
+            case 'skills':
+                setFull({ ...full, "skills": piece });
+                break;
+            case 'jobs':
+                setFull({ ...full, "jobs": piece });
+                break;
+            default:
+                console.log("Something went wrong")
+                break;
+        }
     };
     return (
         <>

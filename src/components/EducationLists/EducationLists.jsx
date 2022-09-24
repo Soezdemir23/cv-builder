@@ -29,7 +29,7 @@ function EducationLists({ liftEducationUp }) {
             }
         });
         setEducation(objects);
-        liftEducationUp(education);
+        liftEducationUp(education, "education");
     };
 
     const handleAddClick = (e) => {
@@ -39,13 +39,13 @@ function EducationLists({ liftEducationUp }) {
         for (let i = 0; i < m.length; i++) {
             m[i].type === "text" ? m[i].value = "" : m[i].checked = false;
         }
-        liftEducationUp(education);
+        liftEducationUp(education, "education");
     };
 
     const handleDeleteClick = (e) => {
         let id = e.target.dataset.key;
         setEducation(education.filter((education) => education.id !== id));
-        liftEducationUp(education);
+        liftEducationUp(education, "education");
     };
 
     return (<> { education.map((element) => (
