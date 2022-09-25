@@ -1,6 +1,7 @@
 function DescriptionLists({ handleDescriptions, getDescriptions }) {
 
 
+
 }
 
-export default DescriptionLists
+export default DescriptionLists;

@@ -39,7 +39,7 @@ function EducationLists({ liftEducationUp }) {
         for (let i = 0; i < m.length; i++) {
             m[i].type === "text" ? m[i].value = "" : m[i].checked = false;
         }
-        liftEducationUp(education);
+        liftEducationUp(education, "education");
     };
 
     const handleDeleteClick = (e) => {
@@ -65,7 +65,7 @@ function EducationLists({ liftEducationUp }) {
             <button data-key={ element.id } onClick={ handleDeleteClick } >Delete</button>
         </li>
     )) }
-        <li key={ 123 } id="entry">
+        <li key={ 123 } data-key={ "education-entry" }>
             <input type={ "text" } onChange={ handleEntryChange } placeholder={ "school or college" } name={ "name" }></input>
             <input type={ "text" } onChange={ handleEntryChange } placeholder={ "degree" } name={ "degree" }></input>
             <input type={ "text" } onChange={ handleEntryChange } placeholder={ "Start" } name={ "start" }></input>
@@ -76,7 +76,8 @@ function EducationLists({ liftEducationUp }) {
             </div>
             <button onClick={ handleAddClick }>Add</button>
         </li>
-    </>);
+    </>
+    );
 
 }
 

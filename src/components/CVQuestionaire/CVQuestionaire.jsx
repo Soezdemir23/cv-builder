@@ -6,12 +6,32 @@ import CertsAndSkills from '../CertsAndSkills/CertsAndSkills';
 import Personal from '../Personal/Personal';
 import { useState } from 'react';
 
-function CVQuestionaire() {
+function CVQuestionaire({ liftInformationUp }) {
     const [full, setFull] = useState({});
 
-    const piecePartTogether = (piece) => {
-        console.log(piece);
+
+    const piecePartTogether = (object, areas) => {
+        console.log(areas);
+        switch (areas) {
+            case "personal":
+                setFull({ ...full, "personal": object });
+                break;
+            case "education":
+                setFull({ ...full, "education": object });
+                break;
+            case "jobs":
+                setFull({ ...full, "jobs": object });
+                break;
+            case "certs":
+                setFull({ ...full, "certs": object });
+                break;
+            default:
+                console.log("something is wrong at function pieceTogether");
+                break;
+        }
     };
+
+
     return (
         <>
             <div id={ "cvq-wrapper" }>
@@ -20,7 +40,6 @@ function CVQuestionaire() {
                 <section className={ "cvq-section" }>
                     <h3>Personal</h3>
                     <Personal
-
                         liftPersonalUp={ piecePartTogether } />
                 </section>
                 {/*Add the information like education*/ }
@@ -37,6 +56,7 @@ function CVQuestionaire() {
                     <h3>Certs/Skills</h3>
                     <ul className={ "cvq-ul" }>
                         <CertsAndSkills
+                            liftCertsUp={ piecePartTogether }
                         />
 
                     </ul>

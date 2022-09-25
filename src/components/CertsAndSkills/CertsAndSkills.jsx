@@ -2,47 +2,65 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 
-function CertsAndSkills() {
-    const newCertsAndSkillsListChildren = [];
-    if (newCertsAndSkillsListChildren.length > 0) {
-        console.log("more certs");
-        let current = newCertsAndSkillsListChildren.map((element, index) => (
+function CertsAndSkills({ liftCertsUp }) {
+    const [certs, setCerts] = useState([]);
+    let hand = {};
 
-            <li key={ index } data-key={ index }>
-                <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" }
-                    defaultValue={ element.name }></input>
-                <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" }
-                    defaultValue={ element.proficiency }></input>
-                <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" }
-                    defaultValue={ element.proof }></input>
-                <button>Update</button>
-                <button>Delete</button>
+    const handleEntryChange = (e) => {
+        hand[e.target.name] = e.target.value;
+    };
+
+    const handleUpdateChange = (e) => {
+        let id = e.target.parentElement.dataset.key;
+        let objects = certs.map((certification) => {
+            if (certification.id === id) {
+                certification[e.target.name] = e.target.value;
+                return certification;
+            } return certification;
+        });
+        setCerts(objects);
+        liftCertsUp(certs, "certs");
+    };
+
+
+    const handleClickAdd = (e) => {
+        hand["id"] = uuidv4();
+        setCerts([...certs, hand]);
+        let m = e.target.parentElement.getElementsByTagName("input");
+        for (let i = 0; i < m.length; i++) {
+            m[i].type === "text" ? m[i].value = "" : m[i].checked = false;
+        }
+        liftCertsUp(certs, "certs");
+    };
+
+    const handleDeleteClick = (e) => {
+        let id = e.target.dataset.key;
+        setCerts(certs.filter((cert) => cert.id !== id));
+        liftCertsUp(certs, "certs");
+    };
+
+    return (<>
+        { certs.map((cert) => (
+
+            <li key={ cert.id } data-key={ cert.id }>
+                <input type={ "text" } onChange={ handleUpdateChange } placeholder={ "Cert or Skillname" } name={ "name" }
+                    defaultValue={ cert.name }></input>
+                <input type={ "text" } onChange={ handleUpdateChange } placeholder={ "proficiency, optional" } name={ "proficiency" }
+                    defaultValue={ cert.proficiency }></input>
+                <input type={ "text" } onChange={ handleUpdateChange } placeholder={ "url for optional proof" } name={ "proof" }
+                    defaultValue={ cert.proof }></input>
+                <button data-key={ cert.id } onClick={ handleDeleteClick }>Delete</button>
             </li>
-        ));
-        current.push(
+        )) }
+        <li key={ 234 } data-key={ "certification-entry" }>
 
-            <li key={ "CAS-zero" } data-key={ "CAS-zero" }>
+            <input type={ "text" } onChange={ handleEntryChange } placeholder={ "Cert or Skillname" } name={ "name" } defaultValue=""></input>
+            <input type={ "text" } onChange={ handleEntryChange } placeholder={ "proficiency, optional" } name={ "proficiency" } defaultValue=""></input>
+            <input type={ "text" } onChange={ handleEntryChange } placeholder={ "url for optional proof" } name={ "proof" } defaultValue=""></input>
+            <button onClick={ handleClickAdd }>Add</button>
+        </li >
 
-                <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" } defaultValue=""></input>
-                <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" } defaultValue=""></input>
-                <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" } defaultValue=""></input>
-                <button>Add</button>
-            </li >
-
-        );
-        return (current);
-    } else {
-        console.log("no certs");
-        return (
-            <li key={ "CAS-dummy" } data-key={ "CAS-dummy" } >
-                <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" } ></input>
-                <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" } ></input>
-                <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" }></input>
-                <button >Add</button>
-            </li>
-        );
-    }
-
+    </>);
 }
 
 export default CertsAndSkills;

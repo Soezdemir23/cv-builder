@@ -6,7 +6,7 @@ function Personal({ liftPersonalUp }) {
     const handleChange = (e) => {
         setPersonal({ ...personal, [e.target.name]: e.target.value });
 
-        liftPersonalUp(personal);
+        liftPersonalUp(personal, "personal");
     };
 
     return (
