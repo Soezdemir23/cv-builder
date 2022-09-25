@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import DescriptionLists from '../DescriptionLists/DescriptionLists';
 
-function JobAndExperienceLists() {
-    const [jobs, setJobs] = useState({});
+function JobAndExperienceLists({liftJobsUp}) {
+    const [jobs, setJobs] = useState([]);
     let hand = {};
 
     const handleEntryChange = (e) => {

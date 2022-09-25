@@ -9,7 +9,6 @@ import { useState } from 'react';
 function CVQuestionaire({ liftInformationUp }) {
     const [full, setFull] = useState({});
 
-<<<<<<< HEAD
 
     const piecePartTogether = (object, areas) => {
         console.log(areas);
@@ -28,28 +27,11 @@ function CVQuestionaire({ liftInformationUp }) {
                 break;
             default:
                 console.log("something is wrong at function pieceTogether");
-=======
-    const piecePartTogether = (piece, area) => {
-        switch (area) {
-            case 'education':
-                setFull({ ...full, "education": piece });
-                break;
-            case 'personal':
-                setFull({ ...full, "personal": piece });
-                break;
-            case 'skills':
-                setFull({ ...full, "skills": piece });
-                break;
-            case 'jobs':
-                setFull({ ...full, "jobs": piece });
-                break;
-            default:
-                console.log("Something went wrong")
->>>>>>> c9a20e51c14a69d61b18e63a5b8f58066a0496f9
                 break;
         }
     };
 
+    
 
     return (
         <>
