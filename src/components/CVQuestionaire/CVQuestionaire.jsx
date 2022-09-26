@@ -29,9 +29,10 @@ function CVQuestionaire({ liftInformationUp }) {
                 console.log("something is wrong at function pieceTogether");
                 break;
         }
+        liftInformationUp(full);
     };
 
-    
+
 
     return (
         <>

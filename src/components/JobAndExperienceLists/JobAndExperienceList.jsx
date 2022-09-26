@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import DescriptionLists from '../DescriptionLists/DescriptionLists';
 
-function JobAndExperienceLists({liftJobsUp}) {
+function JobAndExperienceLists({ liftJobsUp }) {
     const [jobs, setJobs] = useState([]);
     let hand = {};
 
@@ -26,11 +26,13 @@ function JobAndExperienceLists({liftJobsUp}) {
 
 
     const handleAddClick = (e) => {
+        console.log(e.target);
         hand["id"] = uuidv4();
         setJobs([...jobs, hand]);
         let m = e.target.parentElement.getElementsByTagName("input");
+
         for (let i = 0; i < m.length; i++) {
-            m[i].target.value = "";
+            m[i].value = "";
         }
     };
 
@@ -39,7 +41,7 @@ function JobAndExperienceLists({liftJobsUp}) {
         setJobs(jobs.filter((job) => job.id !== id));
     };
 
-
+    const handleDescriptions = (description) =>
 
     return (
         <>
@@ -50,7 +52,9 @@ function JobAndExperienceLists({liftJobsUp}) {
                     <input type="text" onChange={ handleUpdateChange } placeholder={ "Employer" } name={ "employer" } defaultValue={ job.employer }></input>
                     <input type="text" onChange={ handleUpdateChange } placeholder={ "Start" } name={ "start" } defaultValue={ job.start }></input>
                     <input type="text" onChange={ handleUpdateChange } placeholder={ "End" } name={ "end" } defaultValue={ job.end }></input>
-
+                    <ul>
+                        <DescriptionLists />
+                    </ul>
                     <button onClick={ handleDelete }>Delete</button>
                 </li>
 
@@ -62,11 +66,14 @@ function JobAndExperienceLists({liftJobsUp}) {
                 <input type={ "text" } onChange={ handleEntryChange } placeholder={ "Start" } name={ "start" }></input>
                 <input type={ "text" } onChange={ handleEntryChange } placeholder={ "End" } name={ "end" }></input>
                 <ul>
-
+                    <DescriptionLists
+                        data-key={ }
+                        liftDescriptionUp={ }
+                    />
                 </ul>
                 <button onClick={ handleAddClick }>Add</button>
             </li>
         </>
     );
-}
-export default JobAndExperienceLists;
+    };
+    export default JobAndExperienceLists;
