@@ -37,3 +37,9 @@
         grid-template-rows: 1fr 1fr;
     }
 }
+
+.DL-ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
