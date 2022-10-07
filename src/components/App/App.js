@@ -29,8 +29,16 @@ function App() {
             You immediately set the state by filtering for the parent's corresponding id, 
             then change the property in the object, then returning it to the stateArray
      */
+    /**
+     * this takes the event and then sends the corresponding value back
+     */
+    const correctValues = (e) => {
+        return e.target.type=== "checkbox"? e.target.checked : e.target.value
+    }
+
+
     const handleChange = (e) => {
-        console.log()
+        
         switch (e.target.parentElement.className) {
             case "personal":
                 return setPersonal({
@@ -38,17 +46,31 @@ function App() {
                     [e.target.name]: e.target.value
                 });
             case "school":
-                if (e.target.parentElement.dataset.key === "education-entry") {
-                    e.target.type === "checkbox" ? schoolHand[e.target.name] = e.target.checked : schoolHand[e.target.name] = e.target.value;
-                } else {// TODO: fix the updating 
+                if(e.target.parentElement.dataset.key.includes("entry")){
 
-                    setSchool([...school,]);
+                    schoolHand[e.target.name] = correctValues(e)
+                } else {
+                    setSchool([
+                        school.map(
+                            (education) => {
+                                if (education.id === e.target.parentElement.dataset.key) {
+                                    return education[e.target.name] = correctValues(e)
+                                }return education
+                            })
+                    ])
                 }
+                console.log(schoolHand)
+                return;
             default:
                 break;
         }
 
     };
+    /**
+     * T
+     * @param {boolean} object boolean
+     */
+    const objectIsSufficent = (object) => Object.values(object).includes("")
     /**
      * If the user clicks the add button, the information is saved in the state for further processing.
      * Conditions: 
@@ -64,8 +86,10 @@ function App() {
     const handleAddClick = (e) => {
         switch (e.target.parentElement.dataset.key) {
             case "education-entry":
-                // the input text is written 
-                if (Object.keys(schoolHand).length > 3) {
+                // the input text is written and the inside is not empty
+                // FIX THIS AS IT ADDS THE OBJECT TO THE LIST WHEN THERE ARE EMPTY PROPERTIES TOO
+                
+                if (Object.keys(schoolHand).length > 3 && objectIsSufficent(schoolHand)) {
                     if (schoolHand["finished"] === undefined) {
                         schoolHand["finished"] = false;
                     }
