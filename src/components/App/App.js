@@ -14,30 +14,29 @@ function App() {
     let certsHand = {};
     let jobsHand = {};
 
-
+    /* Handling the change in the form should essentially go this way:
+        Seperate the events by their parents className:
+        1. personal
+        2. education
+        3. certs
+        4. skills
+        
+        For personal, there is no need to distinctively seperate them between "new entry" and "update entries".
+        For the rest we need to check for their data-key:
+        does it contain the word "entry"?
+            You enter the information into their distinctive objects to hold  until it is ready to be added
+        does it not contain the word entry?
+            You immediately set the state by filtering for the parent's corresponding id, 
+            then change the property in the object, then returning it to the stateArray
+     */
     const handleChange = (e) => {
-        switch (e.target.dataset.type) {
+        console.log()
+        switch (e.target.parentElement.className) {
             case "personal":
                 return setPersonal({
                     ...personal,
                     [e.target.name]: e.target.value
                 });
-            /*
-            While Personal is easy peasy to fill, the rest is a bit more tricky.
-            
-            1. Data entry:
-            User enters minimum data
-            the eventlistener is reading the parent's data-key attribute
-            put the new data inside a corresponding "hand" object to later on push
-            While minimum data is not reached, button is inactive
-            When minimum data is reached, the object is given an id and added to the respective state
-            
-            2. Data modification:
-            User modifies data.
-            The parent Elements id is being read first through the data-key attribute.
-            The id is used to filter through the state and return the corresponding object.
-            The corresponding property is being overwritten and the state is set
-            */
             case "school":
                 if (e.target.parentElement.dataset.key === "education-entry") {
                     e.target.type === "checkbox" ? schoolHand[e.target.name] = e.target.checked : schoolHand[e.target.name] = e.target.value;
@@ -50,7 +49,18 @@ function App() {
         }
 
     };
-
+    /**
+     * If the user clicks the add button, the information is saved in the state for further processing.
+     * Conditions: 
+     * the user has filled the required amount of input and the clicks "Add":
+     *      Add an uuid as an id to the object
+     *          in the case of a checkbox, it is permissible to simply accept it, as it only has a true or false option.
+     *      The information in the hand object is added to the state for re-rendering the correct state of the website
+     * the user has left certain amount of properties free
+     *      The button's value "Add" is replaced with "not enough information" until the user interacts with the input again.
+     * 
+     * @param {Eventlistener ButtonClick} e Element returned for further processing
+     */
     const handleAddClick = (e) => {
         switch (e.target.parentElement.dataset.key) {
             case "education-entry":
