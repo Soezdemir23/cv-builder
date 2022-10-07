@@ -27,10 +27,10 @@ function JobAndExperienceLists({ liftJobsUp }) {
 
     const handleAddClick = (e) => {
         hand["id"] = uuidv4();
-        
+
         setJobs([...jobs, hand]);
         let m = e.target.parentElement.getElementsByTagName("input");
-        
+
         for (let i = 0; i < m.length; i++) {
             m[i].value = "";
         }
@@ -42,8 +42,8 @@ function JobAndExperienceLists({ liftJobsUp }) {
     };
 
     const handleAddDescriptions = () => {
-        console.log("e")
-    }
+        console.log("e");
+    };
     return (
         <>
             { jobs.map((job) => (
@@ -54,8 +54,8 @@ function JobAndExperienceLists({ liftJobsUp }) {
                     <input type="text" onChange={ handleUpdateChange } placeholder={ "Start" } name={ "start" } defaultValue={ job.start }></input>
                     <input type="text" onChange={ handleUpdateChange } placeholder={ "End" } name={ "end" } defaultValue={ job.end }></input>
                     <ul className='DL-ul'>
-                        <DescriptionLists 
-                        liftDescriptionUp={handleAddDescriptions}/>
+                        <DescriptionLists
+                            liftDescriptionUp={ handleAddDescriptions } />
                     </ul>
                     <button onClick={ handleDelete }>Delete</button>
                 </li>
@@ -69,12 +69,12 @@ function JobAndExperienceLists({ liftJobsUp }) {
                 <input type={ "text" } onChange={ handleEntryChange } placeholder={ "End" } name={ "end" }></input>
                 <ul className='DL-ul'>
                     <DescriptionLists
-                        liftDescriptionUp={ handleAddDescriptions}
+                        liftDescriptionUp={ handleAddDescriptions }
                     />
                 </ul>
                 <button onClick={ handleAddClick }>Add</button>
             </li>
         </>
     );
-    };
-    export default JobAndExperienceLists;
+};
+export default JobAndExperienceLists;
