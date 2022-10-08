@@ -21,7 +21,7 @@ function EducationLists({ school, onChange, onAddClick, onDeleteClick }) {
             <input onChange={ onChange } type={ "text" } placeholder={ "degree" } name={ "degree" }></input>
             <input onChange={ onChange } type={ "text" } placeholder={ "Start" } name={ "start" }></input>
             <input onChange={ onChange } type={ "text" } placeholder={ "End" } name={ "end" }></input>
-            <div  data-key={ "education-entry" }>
+            <div className="school" data-key={ "education-entry" }>
                 <label htmlFor={ "finished" }>Finished</label>
                 <input onChange={ onChange } id={ "finished" } type={ "checkbox" } name={ "finished" }></input>
             </div>

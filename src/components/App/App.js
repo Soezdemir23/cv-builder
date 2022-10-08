@@ -29,27 +29,25 @@ function App() {
             You immediately set the state by filtering for the parent's corresponding id, 
             then change the property in the object, then returning it to the stateArray
      */
-    /**
-     * this takes the event and then sends the corresponding value back
-     */
-    const correctValues = (e) => {
-        return e.target.type=== "checkbox"? e.target.checked : e.target.value
-    }
-
-
+    
+    const correctValues = (e) => e.target.type === "checkbox"? e.target.checked: e.target.value
+    
     const handleChange = (e) => {
-        
+        console.log(e.target.checked)
         switch (e.target.parentElement.className) {
+            
             case "personal":
                 return setPersonal({
                     ...personal,
                     [e.target.name]: e.target.value
                 });
             case "school":
+                console.log(e.target.type)
                 if(e.target.parentElement.dataset.key.includes("entry")){
 
                     schoolHand[e.target.name] = correctValues(e)
-                } else {
+                    
+                } /*else {
                     setSchool([
                         school.map(
                             (education) => {
@@ -58,19 +56,18 @@ function App() {
                                 }return education
                             })
                     ])
-                }
-                console.log(schoolHand)
+                }*/
+                
                 return;
             default:
                 break;
         }
 
     };
-    /**
-     * T
-     * @param {boolean} object boolean
-     */
-    const objectIsSufficent = (object) => Object.values(object).includes("")
+    // check if the number o
+    const requiredMinimumTextInput = (handObject, numberOfTextInputs) => {
+
+    }
     /**
      * If the user clicks the add button, the information is saved in the state for further processing.
      * Conditions: 
@@ -86,10 +83,15 @@ function App() {
     const handleAddClick = (e) => {
         switch (e.target.parentElement.dataset.key) {
             case "education-entry":
-                // the input text is written and the inside is not empty
-                // FIX THIS AS IT ADDS THE OBJECT TO THE LIST WHEN THERE ARE EMPTY PROPERTIES TOO
+                // the 4 text inputs must NOT be empty
+                // the finished can be undefined if need be, like if the user is not pressing it and thus
+                // the eventlistener doesn't see it 
+                // but the text input must definitely be checked for.
+                // create a function, that takes two parameters 
+                // (the object and the number of text inputs you are looking for) and returns a boolean
                 
-                if (Object.keys(schoolHand).length > 3 && objectIsSufficent(schoolHand)) {
+
+                if (Object.keys(schoolHand).length === 4) {
                     if (schoolHand["finished"] === undefined) {
                         schoolHand["finished"] = false;
                     }
