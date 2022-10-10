@@ -1,28 +1,25 @@
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
-
-function CertsAndSkills({ certs }) {
+function CertsAndSkills({ certs, onChange, onAddClick, onDeleteClick }) {
 
     return (<>
         { certs.map((cert) => (
 
-            <li key={ cert.id } data-key={ cert.id }>
-                <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" }
+            <li className="cert" key={ cert.id } data-key={ cert.id }>
+                <input onChange={ onChange } type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" }
                     defaultValue={ cert.name }></input>
-                <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" }
+                <input onChange={ onChange } type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" }
                     defaultValue={ cert.proficiency }></input>
-                <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" }
+                <input onChange={ onChange } type={ "text" } placeholder={ "url for optional proof" } name={ "proof" }
                     defaultValue={ cert.proof }></input>
-                <button>Delete</button>
+                <button onClick={ onDeleteClick } >Delete</button>
             </li>
         )) }
-        <li key={ "CAS-zero" } data-key={ "CAS-entry" }>
+        <li className="cert" key={ "CAS-zero" } data-key={ "CAS-entry" }>
 
-            <input type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" } defaultValue=""></input>
-            <input type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" } defaultValue=""></input>
-            <input type={ "text" } placeholder={ "url for optional proof" } name={ "proof" } defaultValue=""></input>
-            <button>Add</button>
+            <input onChange={ onChange } type={ "text" } placeholder={ "Cert or Skillname" } name={ "name" } defaultValue=""></input>
+            <input onChange={ onChange } type={ "text" } placeholder={ "proficiency, optional" } name={ "proficiency" } defaultValue=""></input>
+            <input onChange={ onChange } type={ "text" } placeholder={ "url for optional proof" } name={ "proof" } defaultValue=""></input>
+            <button onClick={ onAddClick }>Add</button>
         </li >
     </>);
 }

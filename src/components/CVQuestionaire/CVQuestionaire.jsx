@@ -15,10 +15,10 @@ function CVQuestionaire({ personal, school, certs, jobs, onChange, onAddClick, o
                 <section className={ "cvq-section" }>
                     <h3>Personal</h3>
                     <Personal
-                        personal={personal}
-                        onChange={onChange}
-                        onAddClick={onAddClick}
-                        onDeleteClick={onDeleteClick}
+                        personal={ personal }
+                        onChange={ onChange }
+                        onAddClick={ onAddClick }
+                        onDeleteClick={ onDeleteClick }
                     />
                 </section>
                 {/*Add the information like education*/ }
@@ -26,20 +26,23 @@ function CVQuestionaire({ personal, school, certs, jobs, onChange, onAddClick, o
                     <h3>Education</h3>
                     <ul className={ "cvq-ul" }>
                         <EducationLists
-                        school={school}
-                        onChange={onChange}
-                        onAddClick={onAddClick}
-                        onDeleteClick={onDeleteClick}  
-                    />
+                            school={ school }
+                            onChange={ onChange }
+                            onAddClick={ onAddClick }
+                            onDeleteClick={ onDeleteClick }
+                        />
                     </ul>
                 </section>
                 {/*Add the information like skills or languages and certs*/ }
                 <section className={ "cvq-section" }>
                     <h3>Certs/Skills</h3>
                     <ul className={ "cvq-ul" }>
-                        {/*<CertsAndSkills
-                        
-                />*/}
+                        <CertsAndSkills
+                            certs={ certs }
+                            onChange={ onChange }
+                            onAddClick={ onAddClick }
+                            onDeleteClick={ onDeleteClick }
+                        />
 
                     </ul>
                 </section>
@@ -47,8 +50,13 @@ function CVQuestionaire({ personal, school, certs, jobs, onChange, onAddClick, o
                 <section className={ "cvq-section" }>
                     <h3>Job and Experiences</h3>
                     <ul className={ "cvq-ul" }>
-                     {/*   <JobAndExperienceLists
-                        />*/}
+                        <JobAndExperienceLists
+                            jobs={ jobs }
+                            onChange={ onChange }
+                            onAddClick={ onAddClick }
+                            onDeleteClick={ onDeleteClick }
+
+                        />
                     </ul>
                 </section>
             </div>

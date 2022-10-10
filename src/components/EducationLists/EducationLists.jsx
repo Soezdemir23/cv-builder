@@ -11,11 +11,12 @@ function EducationLists({ school, onChange, onAddClick, onDeleteClick }) {
                 defaultValue={ element.end } onChange={ onChange }></input>
             <div data-key={ element.id }>
                 <label htmlFor={ "finished" }>Finished</label>
-                <input  id={ "finished" } type={ "checkbox" } name={ "finished" } defaultChecked={ element.finished } onChange={ onChange }></input>
+                <input id={ "finished" } type={ "checkbox" } name={ "finished" } defaultChecked={ element.finished } onChange={ onChange }></input>
             </div>
             <button data-key={ element.id } onClick={ onDeleteClick }  >Delete</button>
         </li>
     )) }
+
         <li className="school" key={ 123 } data-key={ "education-entry" }>
             <input onChange={ onChange } type={ "text" } placeholder={ "school or college" } name={ "name" }></input>
             <input onChange={ onChange } type={ "text" } placeholder={ "degree" } name={ "degree" }></input>
