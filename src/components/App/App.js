@@ -153,8 +153,13 @@ function App() {
                     jobsHand["id"] = uuidv4();
                     setJobs([
                         ...jobs,
-                        certsHand
+                        jobsHand
                     ]);
+                    jobsHand = {}
+                    clearDefaultInputs("jobs-entry")
+                } else {
+                    e.target.textContent = "Missing!";
+                    setTimeout(() => e.target.textContent = "Add", 500)
                 }
                 break;
             default:
@@ -164,7 +169,20 @@ function App() {
 
 
     const handleDeleteClick = (e) => {
-        setSchool(school.filter((education) => education.id !== e.target.dataset.key));
+        switch(e.target.parentElement.className) {
+            case "job":
+                setJobs(jobs.filter((job) => job.id !== e.target.parentElement.dataset.key ));
+                break;
+            case "cert":
+                setCerts(certs.filter((cert) => cert.id !== e.target.parentElement.dataset.key))
+                break;
+            case "school":
+                setJobs(jobs.filter((job) => job.id !== e.target.parentElement.dataset.key))
+                break;
+            default:
+                console.log("Not found");
+                break;
+        }
     };
 
 

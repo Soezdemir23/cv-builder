@@ -1,6 +1,7 @@
 import DescriptionLists from '../DescriptionLists/DescriptionLists';
 
 function JobAndExperienceLists({ jobs, onChange, onAddClick, onDeleteClick }) {
+    console.log(jobs)
     return (
         <>
             { jobs.map((job) => (
