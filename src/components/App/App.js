@@ -33,7 +33,7 @@ function App() {
     const correctValues = (e) => e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     const handleChange = (e) => {
-
+        console.log(jobsHand);
         switch (e.target.parentElement.className) {
 
             case "personal":
@@ -57,6 +57,7 @@ function App() {
                         }
                     });
                 }
+                break;
             case "cert":
                 if (e.target.parentElement.dataset.key.includes("entry")) {
                     certsHand[e.target.name] = correctValues(e);
@@ -69,7 +70,22 @@ function App() {
                         }
                     });
                 }
+                break;
+            case "job":
+                if (e.target.parentElement.dataset.key.includes("entry")) {
+                    jobsHand[e.target.name] = correctValues(e);
+                } else {
+                    jobs.map((job) => {
+                        if (job.id === e.target.parentElement.dataset.key) {
+                            return job[e.target.name] = e.target.value;
+                        } else {
+                            return job;
+                        }
+                    });
+                }
+                break;
             default:
+                console.log("not here", e.target.parentElement.className);
                 break;
         }
 
@@ -125,6 +141,22 @@ function App() {
                     e.target.textContent = "Missing!";
                     setTimeout(() => e.target.textContent = "Add", 500);
                 }
+                break;
+            case "jobs-entry":
+                // this will be interesting to check by generalizing the solution
+                console.log(jobsHand);
+                if (
+                    jobsHand["name"] !== undefined &&
+                    jobsHand["employer"] !== undefined &&
+                    jobsHand["start"] !== undefined &&
+                    jobsHand["end"] !== undefined) {
+                    jobsHand["id"] = uuidv4();
+                    setJobs([
+                        ...jobs,
+                        certsHand
+                    ]);
+                }
+                break;
             default:
                 break;
         }
