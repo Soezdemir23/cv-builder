@@ -96,7 +96,7 @@ function App() {
                     });
                 }
                 break;
-/*            case "descriptionlist":
+            case "descriptionlist":
                 if (e.target.parentElement.dataset.key.includes("entry")) {
                     descriptionHand[e.target.name] = e.target.value
                 } else {
@@ -111,7 +111,7 @@ function App() {
                     })
                 } 
                 console.log(descriptionHand)
-                break;*/
+                break;
             default:
                 console.log("not here", e.target.parentElement.className);
                 break;
@@ -192,9 +192,7 @@ function App() {
                 }
                 break;
             case "description-entry":
-                
-                
-                /*if (descriptionHand["short"] !== undefined) {
+                if (descriptionHand["short"] !== undefined) {
                     descriptionHand["id"] = uuidv4()
                     
                     //find the job with the parentElementid
@@ -213,7 +211,7 @@ function App() {
                 } else {
                     e.target.textContent = "Missing!";
                     setTimeout(() => e.target.textContent = "Add", 500)
-                }*/
+                }
                 break;
             default:
                 break;

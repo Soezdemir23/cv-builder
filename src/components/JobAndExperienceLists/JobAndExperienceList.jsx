@@ -1,4 +1,3 @@
-import DescriptionLists from '../DescriptionLists/DescriptionLists';
 
 function JobAndExperienceLists({ jobs, onChange, onAddClick, onDeleteClick }) {
     console.log(jobs)
@@ -12,8 +11,26 @@ function JobAndExperienceLists({ jobs, onChange, onAddClick, onDeleteClick }) {
                     <input type="text" onChange={ onChange } placeholder={ "Start" } name={ "start" } defaultValue={ job.start }></input>
                     <input type="text" onChange={ onChange } placeholder={ "End" } name={ "end" } defaultValue={ job.end }></input>
                     <ul className='descriptionlist-ul' data-key={job.id}>
+                        {/*this jobs component should see if there is a job.descriptions property.
+                        If there is one, then map through it.
+                         Add the below "Add Description" component to it
+                        If there is none, then simply only render the "Add" component to it.
+                        */}
 
-                        <DescriptionLists
+                        {
+                        job.descriptions === undefined?
+                            []
+                        : 
+                        job.descriptions.map((description) => (
+                            <li key={description.id} data-key={description.id}>
+                                <p>{description.id}</p>
+                            </li>))
+                        }
+                        <li className='descriptionlist' data-key={"description-entry"}>
+                            <input type={"text"} name="short" placeholder='short-description' onChange={onChange}></input>
+                            <button onClick={onAddClick}>Add</button>
+                        </li>
+                        {/*<DescriptionLists
                             parentId= {job.id}
                             onChange={onChange}
                             onAddClick={onAddClick}
@@ -21,6 +38,7 @@ function JobAndExperienceLists({ jobs, onChange, onAddClick, onDeleteClick }) {
                             descriptions={job.descriptions}
                             
                             />
+            */}
                             </ul>
 
                     <button onClick={ onDeleteClick }>Delete</button>
