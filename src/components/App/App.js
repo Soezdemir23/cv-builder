@@ -8,11 +8,23 @@ function App() {
     const [personal, setPersonal] = useState({});
     const [school, setSchool] = useState([]);
     const [certs, setCerts] = useState([]);
-    const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState([/*{
+        "name":"a",
+        "employer":"a",
+        "start":"a",
+        "end":"a",
+        "id":"438a2ec4-f4cd-4e77-a800-7af77f4620e1",
+        "descriptions":[
+            {"id":"128", "short": "oompa.a"},
+            {"id": "256", "short": "oompala"}
+        ]},
+    {"name":"b","employer":"b","start":"b","end":"b","id":"0de54150-5668-4949-85ef-934b3f691cbd","descriptions":[]}*/]);
 
     let schoolHand = {};
     let certsHand = {};
     let jobsHand = {};
+    let descriptionHand = {}
+
 
     /* Handling the change in the form should essentially go this way:
         Seperate the events by their parents className:
@@ -84,6 +96,22 @@ function App() {
                     });
                 }
                 break;
+/*            case "descriptionlist":
+                if (e.target.parentElement.dataset.key.includes("entry")) {
+                    descriptionHand[e.target.name] = e.target.value
+                } else {
+                    jobs.map((job) => {
+                        if (job.id === e.target.parentElement.dataset.key){
+                            //probably should traverse the descriptions next
+                            console.log(job.description)
+                            return job;
+                        } else {
+                            return job;
+                        }
+                    })
+                } 
+                console.log(descriptionHand)
+                break;*/
             default:
                 console.log("not here", e.target.parentElement.className);
                 break;
@@ -151,6 +179,7 @@ function App() {
                     jobsHand["start"] !== undefined &&
                     jobsHand["end"] !== undefined) {
                     jobsHand["id"] = uuidv4();
+                    jobsHand["descriptions"] = []
                     setJobs([
                         ...jobs,
                         jobsHand
@@ -161,6 +190,30 @@ function App() {
                     e.target.textContent = "Missing!";
                     setTimeout(() => e.target.textContent = "Add", 500)
                 }
+                break;
+            case "description-entry":
+                
+                
+                /*if (descriptionHand["short"] !== undefined) {
+                    descriptionHand["id"] = uuidv4()
+                    
+                    //find the job with the parentElementid
+                    setJobs([jobs.map((job) => {
+                        // find the job with the same id as the descriptionlist's parentid
+
+                        if (job.id === e.target.parentElement.parentElement.dataset.key){
+                            console.log("here")
+                            //job.descriptions.push(descriptionHand)
+                            descriptionHand = {}
+                            return job;
+                        } else {
+                            return job;
+                        }})]
+                    )
+                } else {
+                    e.target.textContent = "Missing!";
+                    setTimeout(() => e.target.textContent = "Add", 500)
+                }*/
                 break;
             default:
                 break;

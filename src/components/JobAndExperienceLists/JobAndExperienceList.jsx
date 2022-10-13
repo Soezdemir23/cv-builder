@@ -11,25 +11,36 @@ function JobAndExperienceLists({ jobs, onChange, onAddClick, onDeleteClick }) {
                     <input type="text" onChange={ onChange } placeholder={ "Employer" } name={ "employer" } defaultValue={ job.employer }></input>
                     <input type="text" onChange={ onChange } placeholder={ "Start" } name={ "start" } defaultValue={ job.start }></input>
                     <input type="text" onChange={ onChange } placeholder={ "End" } name={ "end" } defaultValue={ job.end }></input>
-                    <ul className='DL-ul'>
-                        {/*<DescriptionLists
-                            liftDescriptionUp={ } /> */}
-                    </ul>
+                    <ul className='descriptionlist-ul' data-key={job.id}>
+
+                        <DescriptionLists
+                            parentId= {job.id}
+                            onChange={onChange}
+                            onAddClick={onAddClick}
+                            onDeleteClick={onDeleteClick}
+                            descriptions={job.descriptions}
+                            
+                            />
+                            </ul>
+
                     <button onClick={ onDeleteClick }>Delete</button>
                 </li>
 
             )) }
 
             <li className='job' key={ 456 } data-key={ "jobs-entry" } >
-                <input type={ "text" } onChange={ onChange } placeholder={ "Job title" } name={ "name" } required={ true }></input>
-                <input type={ "text" } onChange={ onChange } placeholder={ "Employer" } name={ "employer" } required={ true }></input>
+                <input type={ "text" } onChange={ onChange } placeholder={ "Job title" } name={ "name" }></input>
+                <input type={ "text" } onChange={ onChange } placeholder={ "Employer" } name={ "employer" }></input>
                 <input type={ "text" } onChange={ onChange } placeholder={ "Start" } name={ "start" }></input>
                 <input type={ "text" } onChange={ onChange } placeholder={ "End" } name={ "end" }></input>
+                {/*
+                For now, let's remove this until I have a found a solution to make it work
+                
                 <ul className='DL-ul'>
-                    {/*<DescriptionLists
-                        liftDescriptionUp={ handleAddDescriptions }
-                        />*/}
-                </ul>
+                    <DescriptionLists
+                        liftDescriptionUp={}
+                        />
+            </ul>*/}
                 <button onClick={ onAddClick }>Add</button>
             </li>
         </>

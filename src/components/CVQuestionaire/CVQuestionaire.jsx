@@ -55,7 +55,6 @@ function CVQuestionaire({ personal, school, certs, jobs, onChange, onAddClick, o
                             onChange={ onChange }
                             onAddClick={ onAddClick }
                             onDeleteClick={ onDeleteClick }
-
                         />
                     </ul>
                 </section>
