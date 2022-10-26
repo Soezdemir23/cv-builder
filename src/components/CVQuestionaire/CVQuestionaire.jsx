@@ -6,7 +6,10 @@ import CertsAndSkills from '../CertsAndSkills/CertsAndSkills';
 import Personal from '../Personal/Personal';
 
 
-function CVQuestionaire({ personal, school, certs, jobs, onChange, onAddClick, onDeleteClick }) {
+function CVQuestionaire({
+    personal, school, certs,
+    jobs, jobHand, descriptionList,
+    descriptionHand, onChange, onAddClick, onDeleteClick }) {
     return (
         <>
             <div id={ "cvq-wrapper" }>
@@ -52,9 +55,13 @@ function CVQuestionaire({ personal, school, certs, jobs, onChange, onAddClick, o
                     <ul className={ "cvq-ul" }>
                         <JobAndExperienceLists
                             jobs={ jobs }
+                            jobHand={ jobHand }
+                            descriptionList={ descriptionList }
+                            descriptionHand={ descriptionHand }
                             onChange={ onChange }
                             onAddClick={ onAddClick }
                             onDeleteClick={ onDeleteClick }
+
                         />
                     </ul>
                 </section>

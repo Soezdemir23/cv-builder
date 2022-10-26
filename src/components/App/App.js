@@ -1,29 +1,24 @@
 import "./App.css";
 import CVQuestionaire from "../CVQuestionaire/CVQuestionaire";
+import CVGerman from "../CVGerman/CVGerman";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 
 function App() {
     const [personal, setPersonal] = useState({});
+    // school component
     const [school, setSchool] = useState([]);
-    const [certs, setCerts] = useState([]);
-    const [jobs, setJobs] = useState([/*{
-        "name":"a",
-        "employer":"a",
-        "start":"a",
-        "end":"a",
-        "id":"438a2ec4-f4cd-4e77-a800-7af77f4620e1",
-        "descriptions":[
-            {"id":"128", "short": "oompa.a"},
-            {"id": "256", "short": "oompala"}
-        ]},
-    {"name":"b","employer":"b","start":"b","end":"b","id":"0de54150-5668-4949-85ef-934b3f691cbd","descriptions":[]}*/]);
-
     let schoolHand = {};
+    // certs and skills component
+    const [certs, setCerts] = useState([]);
     let certsHand = {};
-    let jobsHand = {};
-    let descriptionHand = {}
+    // the jobs and skills component
+    const [jobs, setJobs] = useState([]);
+    const [jobsHand, setJobsHand] = useState({});
+    // the descriptions used to fill in the form
+    const [descriptionHand, setDescriptionHand] = useState({});
+    const [descriptionList, setDescriptionList] = useState([]);
 
 
     /* Handling the change in the form should essentially go this way:
@@ -45,29 +40,26 @@ function App() {
     const correctValues = (e) => e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     const handleChange = (e) => {
-        console.log(jobsHand);
         switch (e.target.parentElement.className) {
-
             case "personal":
                 return setPersonal({
                     ...personal,
                     [e.target.name]: e.target.value
                 });
             case "school":
-
                 if (e.target.parentElement.dataset.key.includes("entry")) {
-
                     schoolHand[e.target.name] = correctValues(e);
-
                 } else {
-                    console.log(e.target.parentElement.dataset.key);
-                    school.map((education) => {
+
+                    setSchool(school.map((education) => {
                         if (education.id === e.target.parentElement.dataset.key) {
-                            return education[e.target.name] = e.target.value;
+                            console.log(e.target.type);
+                            education[e.target.name] = correctValues(e);
+                            return education;
                         } else {
                             return education;
                         }
-                    });
+                    }));
                 }
                 break;
             case "cert":
@@ -84,36 +76,44 @@ function App() {
                 }
                 break;
             case "job":
-                if (e.target.parentElement.dataset.key.includes("entry")) {
-                    jobsHand[e.target.name] = correctValues(e);
-                } else {
-                    jobs.map((job) => {
-                        if (job.id === e.target.parentElement.dataset.key) {
-                            return job[e.target.name] = e.target.value;
-                        } else {
-                            return job;
-                        }
-                    });
-                }
+                setJobsHand({ ...jobsHand, [e.target.name]: e.target.value });
                 break;
-/*            case "descriptionlist":
-                if (e.target.parentElement.dataset.key.includes("entry")) {
-                    descriptionHand[e.target.name] = e.target.value
-                } else {
-                    jobs.map((job) => {
-                        if (job.id === e.target.parentElement.dataset.key){
-                            //probably should traverse the descriptions next
-                            console.log(job.description)
-                            return job;
-                        } else {
-                            return job;
-                        }
-                    })
-                } 
-                console.log(descriptionHand)
-                break;*/
+            case "description":
+                setDescriptionHand({ ...descriptionHand, [e.target.name]: e.target.value });
+                break;
+            case "description-default":
+                setDescriptionList(descriptionList.map(
+                    (description) => {
+                        if (description.id === e.target.parentElement.dataset.key) {
+                            console.log(e.target.name, e.target.value);
+                            description[e.target.name] = e.target.value;
+                            return description;
+                        } return description;
+                    }));
+                break;
+            case "description-saved":
+                let parentId = e.target.parentElement.parentElement.dataset.key;
+                let childId = e.target.parentElement.dataset.key;
+                setJobs(jobs.map((job) => {
+                    if (job.id === parentId) {
+                        job.descriptions.map((description) => {
+                            if (description.id === childId) {
+                                description[e.target.name] = e.target.value;
+                                return description;
+                            } else {
+                                return description;
+                            }
+                        });
+                        return job;
+                    } return job;
+                }));
+                break;
+            case "description-add-to-saved":
+                console.log("Hou");
+                setJobsHand({ ...jobsHand, [e.target.name]: e.target.value });
+                break;
             default:
-                console.log("not here", e.target.parentElement.className);
+                console.log("not here", e.target.parentElement);
                 break;
         }
 
@@ -131,7 +131,12 @@ function App() {
      * @param {Eventlistener ButtonClick} e Element returned for further processing
      */
     const handleAddClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        let id = uuidv4();
         switch (e.target.parentElement.dataset.key) {
+
             case "education-entry":
 
                 if (// we have four properties, the values don't contain empty strings and has no finished property
@@ -142,7 +147,7 @@ function App() {
                     if (schoolHand["finished"] === undefined) {
                         schoolHand["finished"] = false;
                     }
-                    schoolHand["id"] = uuidv4();
+                    schoolHand["id"] = id;
                     setSchool([
                         ...school,
                         schoolHand
@@ -158,12 +163,15 @@ function App() {
                 break;
             case "CAS-entry":
                 if (Object.keys(certsHand).length === 3) {
-                    certsHand["id"] = uuidv4();
+                    certsHand["id"] = id;
                     setCerts([
                         ...certs,
                         certsHand
                     ]);
+                    console.log("certsHand", certsHand);
+                    console.table("certs", certs);
                     certsHand = {};
+
                     clearDefaultInputs("CAS-entry");
                 } else {
                     e.target.textContent = "Missing!";
@@ -172,67 +180,77 @@ function App() {
                 break;
             case "jobs-entry":
                 // this will be interesting to check by generalizing the solution
-                console.log(jobsHand);
                 if (
                     jobsHand["name"] !== undefined &&
                     jobsHand["employer"] !== undefined &&
                     jobsHand["start"] !== undefined &&
                     jobsHand["end"] !== undefined) {
-                    jobsHand["id"] = uuidv4();
-                    jobsHand["descriptions"] = []
+                    // assign the id and descriptionsList to the current JobsHand
+
                     setJobs([
                         ...jobs,
-                        jobsHand
+                        { ...jobsHand, ["id"]: id, ["descriptions"]: descriptionList }
                     ]);
-                    jobsHand = {}
-                    clearDefaultInputs("jobs-entry")
+                    // 
+                    setJobsHand({});
+                    setDescriptionList([]);
+                    // clearDefaultInputs("jobs-entry");
                 } else {
-                    e.target.textContent = "Missing!";
-                    setTimeout(() => e.target.textContent = "Add", 500)
+
                 }
                 break;
-            case "description-entry":
-                
-                
-                /*if (descriptionHand["short"] !== undefined) {
-                    descriptionHand["id"] = uuidv4()
-                    
-                    //find the job with the parentElementid
-                    setJobs([jobs.map((job) => {
-                        // find the job with the same id as the descriptionlist's parentid
+            case "descriptions-entry":
+                // first entry was ignored, let's add to the second entry a timeout and see what happens
+                let object = descriptionHand;
+                object["id"] = id;
+                setDescriptionHand(descriptionHand);
+                setDescriptionList([...descriptionList, descriptionHand]);
+                setDescriptionHand({});
+                break;
+            case "description-saved":
+                console.log("I wrote here");
+                break;
+            case "description-add-to-saved":
+                const parentId = e.target.parentElement.parentElement.dataset.key;
 
-                        if (job.id === e.target.parentElement.parentElement.dataset.key){
-                            console.log("here")
-                            //job.descriptions.push(descriptionHand)
-                            descriptionHand = {}
-                            return job;
-                        } else {
-                            return job;
-                        }})]
-                    )
-                } else {
-                    e.target.textContent = "Missing!";
-                    setTimeout(() => e.target.textContent = "Add", 500)
-                }*/
+                setJobs(jobs.map((job) => {
+                    if (job.id === parentId) {
+                        let n = jobsHand;
+                        n["id"] = id;
+                        job.descriptions.push(n);
+                        setJobsHand({});
+                        return job;
+                    } return job;
+                }));
                 break;
             default:
+                console.log("what's wrong: ", e.target.parentElement);
                 break;
         }
     };
 
 
     const handleDeleteClick = (e) => {
-        switch(e.target.parentElement.className) {
+        e.preventDefault();
+        console.log(e.target.parentElement.className);
+        let id = e.target.parentElement.dataset.key;
+        switch (e.target.parentElement.className) {
             case "job":
-                setJobs(jobs.filter((job) => job.id !== e.target.parentElement.dataset.key ));
+                setJobs(jobs.filter((job) => job.id !== e.target.parentElement.dataset.key));
                 break;
             case "cert":
-                setCerts(certs.filter((cert) => cert.id !== e.target.parentElement.dataset.key))
+                setCerts(certs.filter((cert) => cert.id !== e.target.parentElement.dataset.key));
                 break;
             case "school":
-                setJobs(jobs.filter((job) => job.id !== e.target.parentElement.dataset.key))
+
+                setSchool(school.filter((classes) => classes.id !== id));
+                break;
+            case "description-default":
+                console.log("description inside");
+                setDescriptionList(descriptionList.filter((description) => description.id !== e.target.parentElement.dataset.key));
                 break;
             default:
+                console.log(e.target.parentElement);
                 console.log("Not found");
                 break;
         }
@@ -256,7 +274,7 @@ function App() {
     return (
         <div id="root">
             <header id={ "app-header" }>
-                <h1>Hello World</h1>
+                <h1>CV-Generator</h1>
             </header>
             <div id={ "wrapper" }>
                 <section id={ "cv-questioner" }>
@@ -267,17 +285,26 @@ function App() {
                             onDeleteClick={ handleDeleteClick }
                             school={ school }
                             certs={ certs }
+
                             jobs={ jobs }
+                            jobHand={ jobsHand }
+                            descriptionList={ descriptionList }
+                            descriptionHand={ descriptionHand }
+
                         />
                     </div>
-                    <div id="europe-cv">
-
-                    </div>
-
                 </section>
                 <section id={ "cv-result" }>
+                    <CVGerman
+                        personal={ personal }
+                        school={ school }
+                        certs={ certs }
+                        jobs={ jobs }
+
+                    />
                 </section>
             </div>
+
         </div>
     );
 }
