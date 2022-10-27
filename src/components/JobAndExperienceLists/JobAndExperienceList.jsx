@@ -7,8 +7,7 @@ function JobAndExperienceLists({ jobs, jobHand, descriptionList, descriptionHand
             { jobs.map((job) => (
 
                 <li className='job' key={ job.id } data-key={ job.id }>
-                    <form onSubmit={ onDeleteClick
-                    }>
+                    <form onSubmit={ onDeleteClick } data-key={ job.id } className="job-added">
                         <input required={ true } type="text" onChange={ onChange } placeholder={ "Job title" } name={ "name" } defaultValue={ job.name }></input>
                         <input required={ true } type="text" onChange={ onChange } placeholder={ "Employer" } name={ "employer" } defaultValue={ job.employer }></input>
                         <input required={ true } type="text" onChange={ onChange } placeholder={ "Start" } name={ "start" } defaultValue={ job.start }></input>

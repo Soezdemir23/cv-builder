@@ -11,7 +11,6 @@ import Image from '../../images/pexels.jpg';
 import Jobs from '../Jobs/Jobs';
 
 export default function CVGerrman({ personal, school, certs, jobs }) {
-    console.log(personal);
     return (
         <div id="cvg-wrapper">
             <section id="cvg-profile">
@@ -21,7 +20,7 @@ export default function CVGerrman({ personal, school, certs, jobs }) {
                     <p>Birthplace: { personal["birthplace"] === undefined ? "Somewhereville" : personal["birthplace"] }</p>
                 </div>
                 <div id='profile'>
-                    <p>LinkedIn: { personal.linkedin === undefined ? "not available" : personal.linkedin } </p>
+                    <p>LinkedIn: { personal.linkedIn === undefined ? "not available" : personal.linkedIn } </p>
                     <p>Github: { personal.github === undefined ? "not available" : personal.github }</p>
                     <p>XING: { personal.xing === undefined ? "not available" : personal.xing }</p>
                     <p></p>

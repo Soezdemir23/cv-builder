@@ -112,6 +112,15 @@ function App() {
                 console.log("Hou");
                 setJobsHand({ ...jobsHand, [e.target.name]: e.target.value });
                 break;
+            case "job-added":
+                console.log("job-added");
+                setJobs(jobs.map((job) => {
+                    if (job.id === e.target.parentElement.dataset.key) {
+                        job[e.target.name] = e.target.value;
+                        return job;
+                    } return job;
+                }));
+                break;
             default:
                 console.log("not here", e.target.parentElement);
                 break;

@@ -1,6 +1,5 @@
-export default function ({ jobs }) {
-
-    if (jobs === undefined) {
+export default function Jobs({ jobs }) {
+    if (jobs.length === 0) {
         return (
             <div className='information'>
                 <div className='left'>
@@ -25,10 +24,9 @@ export default function ({ jobs }) {
                 { jobs.map((job) => (
                     <div className="information" key={ job.id }>
                         <div className="left">
-                            <p>{ job.startDate === undefined ?
-                                'no start date' : job.startDate }-
-                                { job.endDate === undefined ?
-                                    'no end date' : job.endDate }
+                            <p>{ job.start === undefined ?
+                                'no start date' : job.start } - { job.end === undefined ?
+                                    'no end date' : job.end }
                             </p>
                         </div>
                         <div className="right">
