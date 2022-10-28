@@ -3,7 +3,8 @@ import CVQuestionaire from "../CVQuestionaire/CVQuestionaire";
 import CVGerman from "../CVGerman/CVGerman";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 function App() {
     const [personal, setPersonal] = useState({});
@@ -40,8 +41,16 @@ function App() {
     const correctValues = (e) => e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     const handleChange = (e) => {
+        console.log(e.target.type)
         switch (e.target.parentElement.className) {
             case "personal":
+                if( e.target.type === "file") {
+                    //is displayed as an object
+                    console.log(e.target.files);
+                    //as an array of files maybe
+                    console.log(e.target.files[0])
+                    return setPersonal({...personal, [e.target.name]: URL.createObjectURL(e.target.files[0])} )
+                }
                 return setPersonal({
                     ...personal,
                     [e.target.name]: e.target.value
@@ -63,8 +72,11 @@ function App() {
                 }
                 break;
             case "cert":
+                console.log("shit")
                 if (e.target.parentElement.dataset.key.includes("entry")) {
-                    certsHand[e.target.name] = correctValues(e);
+                    console.log("the entry shit")
+                    certsHand[e.target.name] = e.target.value;
+                    console.log(certsHand)
                 } else {
                     certs.map((cert) => {
                         if (cert.id === e.target.parentElement.dataset.key) {
@@ -94,16 +106,19 @@ function App() {
             case "description-saved":
                 let parentId = e.target.parentElement.parentElement.dataset.key;
                 let childId = e.target.parentElement.dataset.key;
+                
                 setJobs(jobs.map((job) => {
                     if (job.id === parentId) {
                         job.descriptions.map((description) => {
                             if (description.id === childId) {
+                                
                                 description[e.target.name] = e.target.value;
                                 return description;
                             } else {
                                 return description;
                             }
                         });
+                        console.log(job)
                         return job;
                     } return job;
                 }));
@@ -142,8 +157,11 @@ function App() {
     const handleAddClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-
+        
+        console.log(e.target.parentElement.dataset.key)
         let id = uuidv4();
+        console.log(Object.keys(certsHand).length)
+
         switch (e.target.parentElement.dataset.key) {
 
             case "education-entry":
@@ -171,17 +189,16 @@ function App() {
                 }
                 break;
             case "CAS-entry":
+                console.log(certsHand)
                 if (Object.keys(certsHand).length === 3) {
                     certsHand["id"] = id;
                     setCerts([
                         ...certs,
                         certsHand
                     ]);
-                    console.log("certsHand", certsHand);
-                    console.table("certs", certs);
                     certsHand = {};
-
                     clearDefaultInputs("CAS-entry");
+                    console.log("");
                 } else {
                     e.target.textContent = "Missing!";
                     setTimeout(() => e.target.textContent = "Add", 500);
@@ -277,8 +294,21 @@ function App() {
     };
 
 
-
-
+    // we can later consolidate this into a dropdown menu so the
+    // user can simply download the correct CV
+    // stackoverflow saves the day. Yet Again.
+    const generatePDFfromGermanCV = () => {
+        html2canvas(document.getElementById('cvg-wrapper'), {scale:1})
+        .then(canvas => {
+            const imgData = canvas.toDataURL('image/png')
+            const pdf = new jsPDF({orientation: "portrait"})
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width
+            pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight)
+            pdf.save('download.pdf')
+        })    
+    }
 
     return (
         <div id="root">
@@ -299,7 +329,7 @@ function App() {
                             jobHand={ jobsHand }
                             descriptionList={ descriptionList }
                             descriptionHand={ descriptionHand }
-
+                            convertToPdf = { generatePDFfromGermanCV}
                         />
                     </div>
                 </section>
@@ -313,7 +343,6 @@ function App() {
                     />
                 </section>
             </div>
-
         </div>
     );
 }

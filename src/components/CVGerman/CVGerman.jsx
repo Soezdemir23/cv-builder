@@ -9,13 +9,15 @@
 import './CVGerman.css';
 import Image from '../../images/pexels.jpg';
 import Jobs from '../Jobs/Jobs';
-
+import Education from '../Education/Education';
+import Qualities from '../Qualities/Qualities';
 export default function CVGerrman({ personal, school, certs, jobs }) {
+    console.log(personal.photo)
     return (
         <div id="cvg-wrapper">
             <section id="cvg-profile">
                 <div id='profile-header'>
-                    <img id='profile-picture' src={ Image } alt='profile'></img>
+                    <img id='profile-picture' src={ personal.photo === undefined? Image: personal.photo } alt='profile'></img>
                     <p>Birthday: { personal["birthday"] === undefined ? "02.02.1990" : personal["birthday"] }</p>
                     <p>Birthplace: { personal["birthplace"] === undefined ? "Somewhereville" : personal["birthplace"] }</p>
                 </div>
@@ -40,63 +42,24 @@ export default function CVGerrman({ personal, school, certs, jobs }) {
                     </h2>
                 </header>
                 <main>
-                    {/*could be used as a component here */ }
                     <article>
                         <h3>
                             Jobs and Experiences
-                        </h3>
-                        {/*map this, too. */ }
-                        <Jobs jobs={ jobs }></Jobs>
-
+                        </h3>    
+                        <Jobs jobs={ jobs } />
                     </article>
                     <article>
                         <h3>
                             Education
                         </h3>
                         {/* also should be mapped */ }
-
-
-
-                        <div className='information'>
-                            <div className='left'>
-                                <p>Start and end date</p>
-                            </div>
-                            <div className='right'>
-                                <h4>Education name</h4>
-                                <p>What it is</p>
-                                <p>when and if finished</p>
-                            </div>
-                        </div>
-                        <div className='information'>
-                            <div className='left'>
-                                <p>Start and end date</p>
-                            </div>
-                            <div className='right'>
-                                <h4>Education name</h4>
-                                <p>What it is</p>
-                                <p>when and if finished</p>
-                            </div>
-                        </div>
+                        <Education education={school}/>
                     </article>
                     <article>
                         <h3>Relevant certs, skills, hobbys</h3>
                         {/* can be mapped */ }
                         <div className='certs-grid'>
-                            <div>
-                                <h4>What it is</h4>
-                                <p>proficiency, optional</p>
-                                <p>proof, ooptional</p>
-                            </div>
-                            <div>
-                                <h4>What it is</h4>
-                                <p>proficiency, optional</p>
-                                <p>proof, ooptional</p>
-                            </div>
-                            <div>
-                                <h4>What it is</h4>
-                                <p>proficiency, optional</p>
-                                <p>proof, ooptional</p>
-                            </div>
+                        <Qualities certs={certs}/>
                         </div>
                     </article>
                 </main>

@@ -16,7 +16,7 @@ function JobAndExperienceLists({ jobs, jobHand, descriptionList, descriptionHand
                         <ul style={ { position: "relative", left: "1rem" } } className='descriptionlist-ul' data-key={ job.id }>
                             { job.descriptions.map((description) => (
                                 <li key={ description.id } data-key={ description.id } className="description-saved">
-                                    <input type={ "text" } defaultValue={ description.short } onChange={ onChange } ></input>
+                                    <input type={ "text" } name ="short" defaultValue={ description.short } onChange={ onChange } ></input>
                                     <button onClick={ onDeleteClick }>Delete the description</button>
                                 </li>
                             )) }

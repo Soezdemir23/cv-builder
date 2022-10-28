@@ -9,7 +9,8 @@ import Personal from '../Personal/Personal';
 function CVQuestionaire({
     personal, school, certs,
     jobs, jobHand, descriptionList,
-    descriptionHand, onChange, onAddClick, onDeleteClick }) {
+    descriptionHand, onChange, onAddClick,
+    onDeleteClick,convertToPdf }) {
     return (
         <>
             <div id={ "cvq-wrapper" }>
@@ -64,6 +65,9 @@ function CVQuestionaire({
 
                         />
                     </ul>
+                </section>
+                <section>
+                    <button onClick={convertToPdf}>Print as PDF?</button>
                 </section>
             </div>
         </>

@@ -6,7 +6,7 @@ function Personal({ onChange }) {
             <input type={ "text" } onChange={ onChange } placeholder={ "Second name" }
                 name={ "secondName" }></input>
             <input type={ "text" } onChange={ onChange } placeholder={ "title" } name={ "title" }></input>
-            <input type={ "file" } placeholder={ "Photo" } name={ "photo" }></input>
+            <input type={ "file" } onChange={onChange} placeholder={ "Photo" } name={ "photo" }></input>
             <input type={ "text" } onChange={ onChange } placeholder={ "Street name and number" }
                 name={ "address" }></input>
 
