@@ -1,58 +1,26 @@
-# CV-Builder (WIP)
-
+# CV-Builder 
 A CV-Builder is a nifty way to create automated curriculum vitae.
+## Version 1 is out!
+Working Form!
+Working Imagepicker working!
+Converting into PDF is working!
 
-A curriculum vitae contains 3-4 parts
+## What's next, when I come back?
++ Add another layout or two to the mix so it utilizes the full brunt of the form.
+  + Harvard CV
+  + One of these CVs that display level stats and are colorful, without the non-descriptive scale.
++ Rewrite the CSS in Tailwind CSS
++ Better Layout
++ Dropdown Menu for choosing Layouts
++ Clean up code that was becoming redundant with the complete refactor
 
-## General Information
+## What was the most difficult part of creating this project?
 
-- Photograph (optional)
-
-- Name
-  - first
-  - middle (otpional)
-  - last name
-- birthday and birthplace
-
-- address
-  - Street
-  - Street nr.
-  - zip
-  - city
-  - State (optional)
-  - Country (optional)
-- E-Mail
-- phone-number
-- LinkedIn
-- XING
-- Github
-
-## Educational Experience
-
-- School, preferably last shit
-  - start year - end year
-  - name of school
-- College
-  - start year - end year
-- Certificates
-  - what certificates?
-- Language Proficiency
-
-## Practical experience
-
-- Job experience with short description on what you do
-  - start and end year
-  - short description of your task
-  - biggest relevant contributions that you can share
-- Personal experiences
-  - Projects you made
-    - Project name
-    - explanation
-    - shortened url to repo
-    - shortened url to github pages
-
-## extra scope
-
-## credits
-
+When I worked on this, the most difficult part wasn't forgetting to incorporate more States to handle the re-rendering.
+It was working with nested Objects and make sure how to handle adding, modifying the content.
+It got so bad that I started to create a new project,
+simply to isolate the forms from each other and inspect or debug them.
+Focusing on one Component at a time helped me solve the problem in a few weeks,
+Transferring the problem's solution, or solving it again on the main project took then
+no longer than an hour max, following a few bug fixes through further development.
 Photo by Royal Anwar: https://www.pexels.com/photo/man-leaning-on-wall-450214/

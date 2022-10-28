@@ -22,22 +22,6 @@ function App() {
     const [descriptionList, setDescriptionList] = useState([]);
 
 
-    /* Handling the change in the form should essentially go this way:
-        Seperate the events by their parents className:
-        1. personal
-        2. education
-        3. certs
-        4. skills
-        
-        For personal, there is no need to distinctively seperate them between "new entry" and "update entries".
-        For the rest we need to check for their data-key:
-        does it contain the word "entry"?
-            You enter the information into their distinctive objects to hold  until it is ready to be added
-        does it not contain the word entry?
-            You immediately set the state by filtering for the parent's corresponding id, 
-            then change the property in the object, then returning it to the stateArray
-     */
-
     const correctValues = (e) => e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     const handleChange = (e) => {
@@ -215,7 +199,7 @@ function App() {
 
                     setJobs([
                         ...jobs,
-                        { ...jobsHand, ["id"]: id, ["descriptions"]: descriptionList }
+                        { ...jobsHand, "id": id, "descriptions": descriptionList }
                     ]);
                     // 
                     setJobsHand({});

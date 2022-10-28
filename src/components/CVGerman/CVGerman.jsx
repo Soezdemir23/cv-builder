@@ -37,6 +37,7 @@ export default function CVGerrman({ personal, school, certs, jobs }) {
                 <header id='cv-header'>
                     <h1>Lebenslauf</h1>
                     <h2>
+                        <span>{personal.title === undefined? "": personal.title+ " "}</span>
                         <span>{ personal.firstName === undefined ? "Nobodyssa " : personal.firstName + " " }</span>
                         <span>{ personal.secondName === undefined ? "Businessa" : personal.secondName }</span>
                     </h2>
