@@ -4,7 +4,8 @@ A CV-Builder is a nifty way to create automated curriculum vitae.
 Working Form!
 Working Imagepicker working!
 Converting into PDF is working!
-
+Test it here:
+https://soezdemir23.github.io/cv-builder/
 ## What's next, when I come back?
 + Add another layout or two to the mix so it utilizes the full brunt of the form.
   + Harvard CV
